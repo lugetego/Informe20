@@ -1,0 +1,139 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block main %}
+
+    <div class="container-fluid">
+    <div class="row">
+    <!-- Otros -->
+    <div class="col-xl-10 col-sm-12 col-md-10 mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Inicio</a></li>
+            <li class="breadcrumb-item active">Plan de trabajo 2020</li>
+        </ol>
+    </nav>
+
+    {{ form_start(form) }}
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-productividad-tab" data-toggle="pill" href="#pills-productividad" role="tab" aria-controls="pills-productividad" aria-selected="true">Productividad primaria</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-estudiantes-tab" data-toggle="pill" href="#pills-estudiantes" role="tab" aria-controls="pills-estudiantes" aria-selected="false">Estudiantes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-posdocs-tab" data-toggle="pill" href="#pills-posdocs" role="tab" aria-controls="pills-posdocs" aria-selected="false">Posdoctorantes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-cursos-tab" data-toggle="pill" href="#pills-cursos" role="tab" aria-controls="pills-cursos" aria-selected="false">Cursos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-proyectos-tab" data-toggle="pill" href="#pills-proyectos" role="tab" aria-controls="pills-proyectos" aria-selected="false">Proyectos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-eventos-tab" data-toggle="pill" href="#pills-eventos" role="tab" aria-controls="pills-eventos" aria-selected="false">Eventos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-visitantes-tab" data-toggle="pill" href="#pills-visitantes" role="tab" aria-controls="pills-visitantes" aria-selected="false">Visitantes</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-productividad" role="tabpanel" aria-labelledby="pills-productividad-tab">
+        <div class="form-group ">
+            <div>
+                <p>Teclee la información relacionada a la Productividad primaria para el año 2020</p>
+            </div>
+            <div>
+                {{ form_widget(form.investigacion,{'attr': {'class': 'form-control input-sm', 'placeholder':'Investigación', 'rows':'20'} } ) }}
+            </div>
+            <div>{{ form_errors(form.investigacion) }}</div>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="pills-estudiantes" role="tabpanel" aria-labelledby="pills-estudiantes-tab">
+        <div class="form-group ">
+            <div>
+                <p>Teclee la información relacionada a los Estudiantes para el año 2020</p>
+            </div>
+            <div>
+                {{ form_widget(form.estudiantes,{'attr': {'class': 'form-control input-sm', 'placeholder':'Estudiantes', 'rows':'20'} } ) }}
+            </div>
+            <div>{{ form_errors(form.estudiantes) }}</div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-posdocs" role="tabpanel" aria-labelledby="pills-posdocs-tab">
+        <div class="form-group">
+            <div class="form-group ">
+                <div>
+                    <p>Teclee la información relacionada a los Posdocs para el año 2020</p>
+                </div>
+                <div>
+                    {{ form_widget(form.posdocs,{'attr': {'class': 'form-control input-sm', 'placeholder':'Posdocs', 'rows':'20'} } ) }}
+                </div>
+                <div>{{ form_errors(form.posdocs) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-cursos" role="tabpanel" aria-labelledby="pills-cursos-tab">
+        <div class="form-group">
+            <div class="form-group ">
+                <div>
+                    <p>Teclee la información relacionada a los Cursos a impartir para el año 2020</p>
+                </div>
+                <div>
+                    {{ form_widget(form.cursos,{'attr': {'class': 'form-control input-sm', 'placeholder':'Cursos', 'rows':'20'} } ) }}
+                </div>
+                <div>{{ form_errors(form.cursos) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-proyectos" role="tabpanel" aria-labelledby="pills-proyectos-tab">
+        <div class="form-group">
+            <div class="form-group ">
+                <div>
+                    <p>Teclee la información relacionada a sus Proyectos para el año 2020</p>
+                </div>
+                <div>
+                    {{ form_widget(form.proyectos,{'attr': {'class': 'form-control input-sm', 'placeholder':'Proyectos de investigación','rows':'20'} } ) }}
+                </div>
+                <div>{{ form_errors(form.proyectos) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-eventos" role="tabpanel" aria-labelledby="pills-eventos-tab">
+        <div class="form-group">
+            <div class="form-group ">
+                <div>
+                    <p>Teclee la información relacionada a sus Eventos para el año 2020</p>
+                </div>
+                <div>
+                    {{ form_widget(form.eventos,{'attr': {'class': 'form-control input-sm', 'placeholder':'Eventos', 'rows':'20'} } ) }}
+                </div>
+                <div>{{ form_errors(form.eventos) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-visitantes" role="tabpanel" aria-labelledby="pills-visitantes-tab">
+        <div class="form-group">
+            <div class="form-group ">
+                <div>
+                    <p>Teclee la información relacionada a los Visitantes para el año 2020</p>
+                </div>
+                <div>
+                    {{ form_widget(form.visitantes,{'attr': {'class': 'form-control input-sm', 'placeholder':'Visitantes','rows':'20'} } ) }}
+                </div>
+                <div>{{ form_errors(form.visitantes) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 text-right ">
+            <input type="submit" value="Guardar cambios"  class="btn btn-primary"/>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

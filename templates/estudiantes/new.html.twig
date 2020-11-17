@@ -1,0 +1,83 @@
+{% form_theme form 'form_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('estudiantes_new')}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-8">
+            <div>
+                <label class="text-info" for="formAlumno"> {{ form_label(form.alumno) }} </label>
+                {{ form_widget(form.alumno,{'attr': {'class': 'form-control input-sm', 'placeholder':'Alumno'} } ) }}
+            </div>
+            <div>{{ form_errors(form.alumno) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formNivel">{{ form_label(form.nivel) }}</label>
+                {{ form_widget(form.nivel,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa'} } ) }}
+            </div>
+            <div>{{ form_errors(form.nivel) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formProgramas"> {{ form_label(form.programas) }} </label>
+                {{ form_widget(form.programas,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa'} } ) }}
+            </div>
+            <div>{{ form_errors(form.programas) }}</div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formPages">
+                    {{ form_label(form.programa) }}
+                </label>
+                {{ form_widget(form.programa,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa','readonly': 'true'} } ) }}
+            </div>
+            <div>{{ form_errors(form.programa) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" form="formVolumen">{{ form_label(form.avance) }}</label>
+                {{ form_widget(form.avance,{'attr': {'class': 'form-control input-sm', 'placeholder':'Avance'} } ) }}
+            </div>
+            <div>{{ form_errors(form.avance) }}</div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                <div>
+                    <label class="text-info" class="text-info">{{ form_label(form.titulado) }}</label>
+                </div>
+                {% spaceless %}
+                    {% for child in form.titulado %}
+                        <div class="form-check form-check-inline">
+                            {{ form_widget(child) }}  {{ form_label(child, null, {'label_attr': {'class': 'form-check-input'}}) }}
+                        </div>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+            <div>{{ form_errors(form.titulado) }}</div>
+        </div>
+        <div class="col-md-8">
+            <div>{{ form_label(form.titulacion) }}</div>
+            <div class="form-row ">
+                <div class="col" >{{ form_widget(form.titulacion.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(form.titulacion.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(form.titulacion.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div>{{ form_errors(form.titulacion) }}</div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" class="text-info" class="text-info" for="formTesis">{{ form_label(form.tesis) }}</label>
+                {{ form_widget(form.tesis,{'attr': {'class': 'form-control input-sm', 'placeholder':'Título de la Tésis'} } ) }}
+            </div>
+            <div>{{ form_errors(form.tesis) }}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(form) }}
+    </div>
+</form>

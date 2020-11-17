@@ -1,0 +1,116 @@
+{% form_theme form 'form_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('productividad_new')}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formTitulo"> {{ form_label(form.titulo) }} </label>
+                {{ form_widget(form.titulo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Título'} } ) }}
+            </div>
+            <div>{{ form_errors(form.titulo) }}</div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formAutores">{{ form_label(form.autores) }}</label>
+                {{ form_widget(form.autores,{'attr': {'class': 'form-control input-sm', 'placeholder':'Autores'} } ) }}
+            </div>
+            <div>{{ form_errors(form.autores) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info" for="formTipo"> {{ form_label(form.tipo) }} </label>
+                {{ form_widget(form.tipo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Tipo de publicación'} } ) }}
+            </div>
+            <div>{{ form_errors(form.tipo) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info" for="formYear">
+                    {{ form_label(form.year) }}
+                </label>
+                {{ form_widget(form.year,{'attr': {'class': 'form-control input-sm', 'placeholder':'Año'} } ) }}
+            </div>
+            <div>{{ form_errors(form.year) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info" for="formPages">
+                    {{ form_label(form.pags) }}
+                </label>
+                {{ form_widget(form.pags,{'attr': {'class': 'form-control input-sm', 'placeholder':'Páginas'} } ) }}
+            </div>
+            <div>{{ form_errors(form.pags) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info" form="formVolumen">{{ form_label(form.volumen) }}</label>
+                {{ form_widget(form.volumen,{'attr': {'class': 'form-control input-sm', 'placeholder':'Volumen'} } ) }}
+            </div>
+            <div>{{ form_errors(form.volumen) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info">
+                    {{ form_label(form.numero) }}
+                </label>
+                {{ form_widget(form.numero,{'attr': {'class': 'form-control input-sm', 'placeholder':'Número'} } ) }}
+            </div>
+            <div>{{ form_errors(form.numero) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info">
+                    {{ form_label(form.status) }}
+                </label>
+                {{ form_widget(form.status,{'attr': {'class': 'form-control input-sm', 'placeholder':'Status'} } ) }}
+            </div>
+            <div>{{ form_errors(form.status) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <div>
+                    <label class="text-info">{{ form_label(form.indizado) }}</label>
+                </div>
+                {% spaceless %}
+                    {% for child in form.indizado %}
+                        <div class="form-check form-check-inline">
+                            {{ form_widget(child) }}  {{ form_label(child, null, {'label_attr': {'class': 'form-check-input'}}) }}
+                        </div>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+            <div>{{ form_errors(form.indizado) }}</div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formRevista">{{ form_label(form.revista) }}</label>
+                {{ form_widget(form.revista,{'attr': {'class': 'form-control input-sm', 'placeholder':'Revista'} } ) }}
+            </div>
+            <div>{{ form_errors(form.revista) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formIssn">{{ form_label(form.issn) }}</label>
+                {{ form_widget(form.issn,{'attr': {'class': 'form-control input-sm', 'placeholder':'ISSN'} } ) }}
+            </div>
+            <div>{{ form_errors(form.issn) }}</div>
+        </div>
+        <div class="form-group col-md-8">
+            <div>
+                <label class="text-info" for="formProyectos">
+                    {{ form_label(form.proyectos) }}
+                </label>
+                {{ form_widget(form.proyectos,{'attr': {'class': 'form-control input-sm', 'placeholder':'Proyectos'} } ) }}
+            </div>
+            <div>{{ form_errors(form.proyectos) }}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(form) }}
+
+    </div>
+</form>

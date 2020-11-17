@@ -1,0 +1,30 @@
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Solicitud Cambio de Contraseña'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_text %}
+    {% autoescape false %}
+
+Centro de Ciencias Matemáticas
+
+Este correo ha sido enviado para crear una nueva contraseña en el Sistema de Captura de Informe y Plan de trabajo
+
+Nombre de usuario: {{ user.username }}
+
+Para realizar esta acción es necesario abrir el siguiente enlace.
+
+{{ confirmationUrl }}
+
+Favor de hacernos saber tus dudas y/o comentarios.
+
+Luis Gerardo Tejero: gerardo@matmor.unam.mx, ext. 42597
+Miguel Angel Magaña: miguel@matmor.unam.mx,  ext. 32739
+
+
+Centro de Ciencias Matemáticas
+UNAM-Morelia
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}
+

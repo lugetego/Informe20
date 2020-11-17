@@ -1,0 +1,20 @@
+
+{% block wrapper %}
+
+    <div>
+        {% block fos_user_content %}
+
+            <div class="fos_user_user_show ">
+
+                <p><b><i class="fa fa-user"></i> {{ 'Nombre'|trans({},'FOSUserBundle') }}:</b> {{ user.username }}</p>
+                <p><b><i class="fa fa-envelope"></i> {{ 'E-mail'|trans({}, 'FOSUserBundle') }}: </b> {{ user.email }}</p>
+                <p><a href=" {{ path('fos_user_profile_edit') }}" type="button"  class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Modificar</a>
+                    <a href="{{ path('dashboard') }}" type="button"  class="btn btn-danger">Cancelar</a>
+                </p>
+
+            </div>
+
+        {% endblock fos_user_content %}
+    </div>
+
+{% endblock %}

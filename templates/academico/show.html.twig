@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Academico{% endblock %}
+
+{% block body %}
+    <h1>Academico</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ academico.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ academico.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ academico.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Nacimiento</th>
+                <td>{{ academico.nacimiento ? academico.nacimiento|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Rfc</th>
+                <td>{{ academico.rfc }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ academico.created ? academico.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Modified</th>
+                <td>{{ academico.modified ? academico.modified|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{{ academico.activo ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('academico_index') }}">back to list</a>
+
+    <a href="{{ path('academico_edit', {'id': academico.id}) }}">edit</a>
+
+    {{ include('academico/_delete_form.html.twig') }}
+{% endblock %}

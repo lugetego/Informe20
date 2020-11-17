@@ -1,0 +1,86 @@
+{% form_theme edit_form 'form_errors.html.twig' %}
+
+{{ form_start(edit_form, {'action': path('estudiantes_edit', { 'id': id})}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-8">
+            <div>
+                <label for="formAlumno"> {{ form_label(edit_form.alumno) }} </label>
+                {{ form_widget(edit_form.alumno,{'attr': {'class': 'form-control input-sm', 'placeholder':'Alumno'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.alumno) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formNivel">{{ form_label(edit_form.nivel) }}</label>
+                {{ form_widget(edit_form.nivel,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.nivel) }}</div>
+        </div>
+
+
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formPages">
+                    {{ form_label(edit_form.programa) }}
+                </label>
+                {{ form_widget(edit_form.programa,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.programa) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" form="formVolumen">{{ form_label(edit_form.avance) }}</label>
+                {{ form_widget(edit_form.avance,{'attr': {'class': 'form-control input-sm', 'placeholder':'Avance'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.avance) }}</div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                <div>
+                    <label class="text-info">{{ form_label(edit_form.titulado) }}</label>
+                </div>
+                {% spaceless %}
+                    {% for child in edit_form.titulado %}
+                        <div class="form-check form-check-inline">
+                            {{ form_widget(child) }}  {{ form_label(child, null, {'label_attr': {'class': 'form-check-input'}}) }}
+                        </div>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+            <div>{{ form_errors(edit_form.titulado) }}</div>
+        </div>
+        <div class="col-md-8">
+            <div class="text-info">{{ form_label(edit_form.titulacion) }}</div>
+            <div class="form-row ">
+                <div class="col" >{{ form_widget(edit_form.titulacion.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(edit_form.titulacion.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(edit_form.titulacion.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div>{{ form_errors(edit_form.titulacion) }}</div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formTesis">{{ form_label(edit_form.tesis) }}</label>
+                {{ form_widget(edit_form.tesis,{'attr': {'class': 'form-control input-sm', 'placeholder':'Título de la Tésis'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.tesis) }}</div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(edit_form) }}
+
+    </div>
+</form>
+
+
+
+
+
+
+

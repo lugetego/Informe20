@@ -1,0 +1,22 @@
+{% form_theme edit_form 'form_errors.html.twig' %}
+
+{{ form_start(edit_form, {'action': path('otros_edit', { 'id': id})}) }}
+
+<form>
+    <div class="form-row">
+        <div class="col-lg-12">
+            <div class="form-group">
+
+                <div>
+                    {{ form_widget(edit_form.actividad,{'attr': {'class': 'form-control', 'placeholder':'Registro de actividad','rows' : '6' } } ) }}
+                </div>
+                <div>{{ form_errors(edit_form.actividad) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(edit_form) }}
+    </div>
+</form>

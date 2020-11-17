@@ -1,0 +1,57 @@
+{% form_theme edit_form 'form_errors.html.twig' %}
+
+{{ form_start(edit_form, {'action': path('cursos_edit', { 'id': id})}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formNombre">{{ form_label(edit_form.nombre) }}</label>
+                {{ form_widget(edit_form.nombre,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nombre del curso o seminario'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.nombre) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formTipo">{{ form_label(edit_form.tipo) }}</label>
+                {{ form_widget(edit_form.tipo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Curso o seminario'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.tipo) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formNivel">
+                    {{ form_label(edit_form.nivel) }}
+                </label>
+                {{ form_widget(edit_form.nivel,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nivel del curso o seminario'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.nivel) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" form="formHoras">{{ form_label(edit_form.horas) }}</label>
+                {{ form_widget(edit_form.horas,{'attr': {'class': 'form-control input-sm', 'placeholder':'Número de horas por semana'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.horas) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formLugar">
+                    {{ form_label(edit_form.lugar) }}
+                </label>
+                {{ form_widget(edit_form.lugar,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.lugar) }}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(edit_form) }}
+
+    </div>
+</form>
+
+
+
+

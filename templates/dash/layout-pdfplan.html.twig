@@ -1,0 +1,60 @@
+{# src/AppBundle/Resources/views/layout-pdf.html.twig #}
+<meta charset="UTF-8" />
+
+{% block css %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="http://tic.matmor.unam.mx/informe-plan/css/sb-admin2.css" />
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}" type="text/css"/>
+{% endblock %}
+
+{% block body %}
+    {# Layout for PDF files #}
+
+    {% block content %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3">
+                    <p class="text-gray-900"><small><strong>Académico:</strong> {{ academico.nombre }} {{ academico.apellido }}</small></p>
+                    <p class="text-gray-900">Plan de trabajo {{ plan.anio }}</p>
+                </div>
+                {#                <div class="col-xs-6">#}
+                {#                    <p class="text-right"><img class="right" src="http://tic.matmor.unam.mx/informe-plan/img/ccm-bn.png" width="180px" height="60px" /></p>#}
+                {#                </div>#}
+            </div>
+
+            {% if plan.investigacion %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Productividad primaria</small></div>
+                <p class="text-justify text-gray-700"><small>{{ plan.investigacion| nl2br }}</small></p>
+            {% endif %}
+            {% if plan.estudiantes %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Estudiantes</small></div>
+                <p class="text-justify text-gray-700"><small>{{ plan.estudiantes| nl2br }}</small></p>
+            {% endif %}
+            {% if plan.posdocs %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Posdoctorantes</small></div>
+                <p class="text-justify text-gray-700"><small>{{ plan.posdocs| nl2br }}</small></p>
+            {% endif %}
+            {% if plan.cursos %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Cursos y seminarios</small></div>
+                <p class="text-justify text-gray-700"><small>{{ plan.cursos | nl2br  }}  </small></p>
+            {% endif %}
+            {% if plan.proyectos %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Proyectos</small></div>
+                <p class="text-justify text-gray-700"><small>{{ plan.proyectos| nl2br }}</small></p>
+            {% endif %}
+            {% if plan.eventos %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Eventos académicos, de divulgación y vinculación</small></div>
+                <p class="text-justify text-gray-700"> <small>{{ plan.eventos| nl2br }}</small></p>
+            {% endif %}
+            {% if plan.visitantes %}
+                <div class="text-gray-900 pb-1 bg-gray-100"><small>Visitantes</small></div>
+                <p class="text-justify text-gray-700"> <small>{{ plan.visitantes| nl2br }}</small></p>
+            {% endif %}
+        </div>
+    {% endblock %}
+
+{% endblock %}

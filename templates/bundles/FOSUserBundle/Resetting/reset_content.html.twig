@@ -1,0 +1,27 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="text-center"><img class="mb-3" src="{{ asset('img/ccm-bn.png') }}" alt="CCM" width="280" height="90"></div>
+<h5 class="text-secondary text-center"><strong>Cambio de Contraseña</strong></h5>
+
+{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+
+<div class="form-group">
+    <label for="fos_user_change_password_form_new_first"
+           class="sr-only">{{ form_label(form.plainPassword.first) }}</label>
+    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control' , 'placeholder' : 'nueva contraseña'}}) }}
+
+
+    <label for="fos_user_change_password_form_new_second"
+           class="sr-only">{{ form_label(form.plainPassword.second) }}</label>
+    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control' , 'placeholder' : 'repite la contraseña'}}) }}
+
+    {{ form_widget(form) }}
+</div>
+
+<div>
+    <input class="btn btn-primary btn-block" type="submit" id="submit" name="submit" value="Aceptar"/>
+</div>
+
+
+{{ form_errors(form) }}
+{{ form_end(form) }}

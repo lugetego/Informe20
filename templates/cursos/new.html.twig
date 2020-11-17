@@ -1,0 +1,67 @@
+{% form_theme form 'form_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('cursos_new')}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formNombre">{{ form_label(form.nombre) }}</label>
+                {{ form_widget(form.nombre,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nombre del curso o seminario'} } ) }}
+            </div>
+            <div>{{ form_errors(form.nombre) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formTipo">{{ form_label(form.tipo) }}</label>
+                {{ form_widget(form.tipo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Curso o seminario'} } ) }}
+            </div>
+            <div>{{ form_errors(form.tipo) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formNivel">
+                    {{ form_label(form.nivel) }}
+                </label>
+                {{ form_widget(form.nivel,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nivel del curso o seminario'} } ) }}
+            </div>
+            <div>{{ form_errors(form.nivel) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" form="formHoras">{{ form_label(form.horas) }}</label>
+                {{ form_widget(form.horas,{'attr': {'class': 'form-control input-sm', 'placeholder':'Número de horas por semana'} } ) }}
+            </div>
+            <div>{{ form_errors(form.horas) }}</div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formLugares"> {{ form_label(form.lugares) }} </label>
+                {{ form_widget(form.lugares,{'attr': {'class': 'form-control input-sm', 'placeholder':'Lugar'} } ) }}
+            </div>
+            <div>{{ form_errors(form.lugares) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" class="text-info" for="formLugar">
+                    {{ form_label(form.lugar) }}
+                </label>
+                {{ form_widget(form.lugar,{'attr': {'class': 'form-control input-sm', 'placeholder':'Programa','readonly': 'true'} } ) }}
+            </div>
+            <div>{{ form_errors(form.lugar) }}</div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(form) }}
+
+    </div>
+</form>
+
+
+
+

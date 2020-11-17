@@ -1,0 +1,58 @@
+{% form_theme edit_form 'form_errors.html.twig' %}
+
+{{ form_start(edit_form, {'action': path('proyectos_edit', { 'id': id})}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-8">
+            <div>
+                <label class="text-info" for="formNombre"> {{ form_label(edit_form.nombre) }} </label>
+                {{ form_widget(edit_form.nombre,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nombre del proyecto'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.nombre) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formNumero">{{ form_label(edit_form.numero) }}</label>
+                {{ form_widget(edit_form.numero,{'attr': {'class': 'form-control input-sm', 'placeholder':'Número del proyecto'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.numero) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formPages">
+                    {{ form_label(edit_form.tipo) }}
+                </label>
+                {{ form_widget(edit_form.tipo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Tipo de proyecto'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.tipo) }}</div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-info">{{ form_label(edit_form.inicio) }}</div>
+            <div class="form-row ">
+                <div class="col" >{{ form_widget(edit_form.inicio.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(edit_form.inicio.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(edit_form.inicio.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div>{{ form_errors(edit_form.inicio) }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-info">{{ form_label(edit_form.fin) }}</div>
+            <div class="form-row ">
+                <div class="col" >{{ form_widget(edit_form.fin.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(edit_form.fin.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(edit_form.fin.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div>{{ form_errors(edit_form.fin) }}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(edit_form) }}
+
+    </div>
+</form>
+
+

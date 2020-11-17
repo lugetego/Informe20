@@ -1,0 +1,66 @@
+{% form_theme form 'form_errors.html.twig' %}
+
+{{ form_start(form, {'action': path('proyectos_new')}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-8">
+            <div>
+                <label class="text-info" for="formNombre"> {{ form_label(form.nombre) }} </label>
+                {{ form_widget(form.nombre,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nombre del proyecto'} } ) }}
+            </div>
+            <div>{{ form_errors(form.nombre) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formNumero">{{ form_label(form.numero) }}</label>
+                {{ form_widget(form.numero,{'attr': {'class': 'form-control input-sm', 'placeholder':'Número del proyecto'} } ) }}
+            </div>
+            <div>{{ form_errors(form.numero) }}</div>
+        </div>
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formTipos"> {{ form_label(form.tipos) }} </label>
+                {{ form_widget(form.tipos,{'attr': {'class': 'form-control input-sm', 'placeholder':'Tipo de proyecto'} } ) }}
+            </div>
+            <div>{{ form_errors(form.tipos) }}</div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <div>
+                <label class="text-info" for="formPages">
+                    {{ form_label(form.tipo) }}
+                </label>
+                {{ form_widget(form.tipo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Tipo de proyecto','readonly': 'true'} } ) }}
+            </div>
+            <div>{{ form_errors(form.tipo) }}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-info">{{ form_label(form.inicio) }}</div>
+            <div class="form-row ">
+                <div class="col" >{{ form_widget(form.inicio.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(form.inicio.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(form.inicio.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div>{{ form_errors(form.inicio) }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-info">{{ form_label(form.fin) }}</div>
+            <div class="form-row ">
+                <div class="col" >{{ form_widget(form.fin.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(form.fin.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div class="col" >{{ form_widget(form.fin.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                <div>{{ form_errors(form.fin) }}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(form) }}
+
+    </div>
+</form>
+
+

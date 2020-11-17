@@ -1,0 +1,51 @@
+{% form_theme edit_form 'form_errors.html.twig' %}
+
+{{ form_start(edit_form, {'action': path('informe_edit', { 'id': informe.id })}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <div>
+                {{ form_label(edit_form.dictamen) }}
+            </div>
+            <div>
+                {{ form_widget(edit_form.dictamen,{'attr': {'class': 'form-control input-sm', 'placeholder':'Autores'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.dictamen) }}</div>
+        </div>
+
+        <div class="form-group col-md-6 px-4">
+            <div>
+                {{ form_label(edit_form.enviado) }}
+            </div>
+            <div>
+                {% spaceless %}
+                    {% for child in edit_form.enviado %}
+                        <div class="form-check form-check-inline">
+                            {{ form_widget(child) }}  {{ form_label(child, null, {'label_attr': {'class': 'form-check-input'}}) }}
+                        </div>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+            {% if informe.enviado %}
+                <span class="badge badge-pill badge-success text-xs">fecha de modificación {{ informe.modified|localizeddate('long', 'none') }}</span>
+            {% endif %}
+            <div>{{ form_errors(edit_form.enviado) }}</div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <div>{{ form_label(edit_form.observaciones) }}</div>
+
+            <div>
+                {{ form_widget(edit_form.observaciones,{'attr': {'class': 'form-control input-sm', 'placeholder':'Observaciones', 'rows':'20' } } )  }}
+            </div>
+            <div>{{ form_errors(edit_form.observaciones) }}</div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            {{ form_end(edit_form) }}
+        </div>
+
+</form>

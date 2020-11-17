@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Academico{% endblock %}
+
+{% block body %}
+    <h1>Create new Academico</h1>
+
+    {{ include('academico/_form.html.twig') }}
+
+    <a href="{{ path('academico_index') }}">back to list</a>
+{% endblock %}

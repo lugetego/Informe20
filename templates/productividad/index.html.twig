@@ -1,0 +1,122 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block main %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Productividad -->
+            <div class="col-xl-12 col-sm-12 col-md-12 mt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Inicio</a></li>
+                        <li class="breadcrumb-item active">Informe - Productividad primaria</li>
+                    </ol>
+                </nav>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Productividad primaria en {{ anual }}</h1>
+                    {% if enviado != true  %}
+                        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " data-toggle="modal" data-target="#invesnewModal"><i class="fas fa-plus fa-sm text-white-50"></i> Nuevo registro</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="invesnewModal" tabindex="-1" role="dialog" aria-labelledby="invesnewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="invesnewModalLabel">Nuevo registro de productividad primaria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ render(path('productividad_new')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-sm-12 col-md-4 mb-2">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Productividad primaria</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-dark"> En este rubro deberá reportar su productividad primaria
+                            realizada durante el periodo que corresponde a su informe.</p>
+                        <p class="text-justify text-dark"><strong class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></strong> Se ha precargado en este sistema la información que
+                            nos proporciona el Sistema de Referencias Bibliográficas del CCM (<a href="http://gaspacho.matmor.unam.mx/SRB/" target="_blank"><u>SRB</u></a>), favor de verificar que la información
+                            sea la correcta. Si hubiera algún artículo o preprint que no aparezca favor de agregarlo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-12 mb-2">
+                {% for productividad in productividades %}
+                    {% set modalshow = 'invesshowModal'~ productividad.id  %}
+                    {% set modaledit = 'inveseditModal'~ productividad.id  %}
+
+                    <div class="card border-left-primary shadow mb-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h5 font-weight-bold text-primary mb-1">{{ productividad.titulo }}, <small> {{ productividad.tipo|title  }}</small></div>
+                                    <div class="h6 mb-1 font-weight-bold text-gray-800">
+                                        <strong>{{ productividad.revista }}</strong>
+                                        Volume {{ productividad.volumen }}, {{ productividad.year }}, Issue {{ productividad.numero }}
+                                        ISSN: {{ productividad.issn }}
+                                        {# Volume 25, Issue 8, 1 July 2016, Article number 1642011 #}
+                                        <p class="text-right">
+                                            <button type="button" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#{{ modalshow }}">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                            {% if enviado != 1 %}
+                                                <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#{{ modaledit }}" >
+                                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                                </button>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{ modalshow }}" tabindex="-1" role="dialog" aria-labelledby="{{ modalshow }}Label">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{ modalshow }}Label">{{ productividad.titulo |title}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ render(path('productividad_show', {'id': productividad.id}) ) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{ modaledit }}" tabindex="-1" role="dialog" aria-labelledby="{{ modaledit }}Label">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{ modaledit }}Label">Productividad primaria</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>                                        </div>
+                                <div class="modal-body">
+                                    {{ render(path('productividad_edit', {'id': productividad.id}) ) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Fin Productividad -->
+{% endblock %}

@@ -1,0 +1,614 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CCM - Dashboard{% endblock %}
+
+{% block main %}
+
+    <!-- Page Heading -->
+    <div class="card my-4">
+        <div class="card-body">
+            <h1 class="h3 mb-0 text-gray-800 mb-2">Informe de actividades {{ actual }}</h1>
+            <div>
+                <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-light btn-icon-split btn-sm ">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-print"></i>
+                                        </span>
+                    <span class="text">Vista previa</span>
+                </a>
+                <a href="{{ path('informe_pdf',{'anio':informe.anio}) }}" class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                    <span class="text">Versión PDF</span>
+                </a>
+                {% if informe.enviado == 1 %}
+                    <span class="badge badge-pill badge-success">Enviado</span>
+
+                {% else %}
+                    <span class="badge badge-pill badge-warning">No enviado</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-9">
+            <!-- Content Row -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if informe.productividades|length == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1">Productividad primaria</div>
+                                    <a href="{{ path('productividad_index',{'productividades':informe.productividades} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-file-alt fa-2x text-gray-600"></i><br>
+                                    {% if informe.productividades|length > 0 %}
+                                        <span class="badge badge-pill badge-success">{{  informe.productividades|length }}</span>
+                                    {% else %}
+                                        <span class="badge badge-pill badge-warning">{{  informe.productividades|length }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if informe.estudiantes|length == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1">Estudiantes y posdocs</div>
+                                    <a href="{{ path('estudiantes_index',{'estudiantes':informe.estudiantes} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-graduation-cap fa-2x text-gray-600"></i><br>
+                                    <span class="badge badge-pill {% if informe.estudiantes|length > 0 or informe.posdocs|length > 0 %}badge-success{% else %}badge-warning{% endif %}">
+                                                {% set posdocs = informe.posdocs|length %} {% set estudiantes = informe.estudiantes|length %} {{ posdocs + estudiantes }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if informe.cursos|length == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1">Cursos y seminarios</div>
+                                    <a href="{{ path('cursos_index',{'cursos':informe.cursos} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-university fa-2x text-gray-600"></i><br>
+                                    <span class="badge badge-pill {% if informe.cursos|length > 0 or informe.cursos|length > 0 %}badge-success{% else %}badge-warning{% endif %}">
+                                                {{ informe.cursos|length }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if informe.proyectos|length == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1">Proyectos</div>
+                                    <a href="{{ path('proyectos_index',{'proyectos':informe.proyectos} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-tasks fa-2x text-gray-600"></i><br>
+                                    <span class="badge badge-pill {% if informe.proyectos|length > 0 or informe.proyectos|length > 0 %}badge-success{% else %}badge-warning{% endif %}">
+                                                {{ informe.proyectos|length }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if eventos|length == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1">Eventos académicos, de divulgación y vinculación</div>
+                                    <a href="{{ path('eventos_index',{'eventos':eventos} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-calendar-check fa-2x text-gray-600"></i><br>
+                                    <span class="badge badge-pill {% if eventos|length > 0 or eventos|length > 0 %}badge-success{% else %}badge-warning{% endif %}">
+                                                {{ eventos|length }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% set visitantes=0 %}
+                {% for informe in informe.eventos %}
+                    {% if informe.tipo == 'Visitante' %}
+                        {% set visitantes = visitantes + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if visitantes == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1 pb-4">Visitantes</div>
+                                    <a href="{{ path('visitantes_index',{'visitantes':informe.eventos} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-suitcase fa-2x text-gray-600"></i><br>
+                                    <span class="badge badge-pill {% if visitantes > 0 %}badge-success{% else %}badge-warning{% endif %}">{{ visitantes}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card {% if informe.otros|length == 0 %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1 pb-4">Otras actividades</div>
+                                    <a href="{{ path('otros_index',{'otros':informe.otros} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-search"></i></span>
+                                        <span class="text">Ver información</span>
+
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-table fa-2x text-gray-600"></i><br>
+                                    <span class="badge badge-pill {% if informe.otros|length > 0 or informe.otros|length > 0 %}badge-success{% else %}badge-warning{% endif %}">
+                                                {{ informe.otros|length }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#                <div class="col-xl-3 col-md-6 mb-4">#}
+                {#                    <div class="card {% if informe.enviado == 1 %}border-bottom-success{% else %}border-bottom-danger{% endif %} shadow h-100 py-2">#}
+                {#                        <div class="card-body">#}
+                {#                            <div class="row no-gutters align-items-center">#}
+                {#                                <div class="col mr-2">#}
+                {#                                    <div class="font-weight-bold text-dark mb-1">Informe 2019</div>#}
+                {#                                    <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-light btn-icon-split btn-sm ">#}
+                {#                                        <span class="icon text-gray-600">#}
+                {#                                            <i class="fas fa-print"></i>#}
+                {#                                        </span>#}
+                {#                                        <span class="text">Vista previa</span>#}
+                {#                                    </a>#}
+                {#                                    #}{# <a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descargar</h5></a>#}
+                {#                                    <a href="#" class="btn btn-light btn-icon-split btn-sm my-2">#}
+                {#                                        <span class="icon text-gray-600">#}
+                {#                                            <i class="fas fa-file-pdf"></i>#}
+                {#                                        </span>#}
+                {#                                        <span class="text">Versión PDF</span>#}
+                {#                                    </a>#}
+                {#                                </div>#}
+                {#                                <div class="col-auto text-center">#}
+                {#                                    {% if informe.enviado == 1 %}#}
+                {#                                        <i class="fas fa-check-circle fa-2x text-success"></i><br>#}
+                {#                                        <span class="badge badge-pill badge-success">Enviado</span>#}
+
+                {#                                    {% else %}#}
+                {#                                        <i class="fas fa-times-circle fa-2x text-warning"></i><br>#}
+                {#                                        <span class="badge badge-pill badge-danger">No enviado</span>#}
+                {#                                    {% endif %}#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+            </div>
+        </div>
+        <div class="col-xl-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Informe y plan de trabajo </h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-dark text-justify">La fecha límite para el envío de tu Informe de trabajo {{ actual }} y Plan de trabajo {{ siguiente }}
+                        es el <strong>15 de enero de 2021.</strong></p>
+                    {% if informe.enviado is defined and informe.enviado == 1 %}
+                        <div class="px-3 py-2 bg-gradient-success text-white">
+                            <p class="text-justify">Se ha recibido la información de tu informe y plan de trabajo,
+                                por lo tanto ya no es posible realizar modificaciones sobre ellos.
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="px-3 py-2 bg-gradient-warning text-white">
+                            Aún no se ha recibido información de tu informe y plan de trabajo.
+                        </div>
+                        <div class="py-2">
+                            <a href="#" data-toggle="modal" data-target="#myModal2" aria-expanded="false" aria-controls="collapseThree" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                                <span class="text">Enviar informe y plan</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card my-4">
+        <div class="card-body">
+            <h1 class="h3 mb-0 text-gray-800 mb-2">Plan de trabajo {{ siguiente }}
+                {% if plan|length == 0 %}
+                    <a href="{{ path('plan_new')}} " class="btn btn-light btn-icon-split btn-sm ml-4">
+                        <span class="icon text-gray-800"><i class="fas fa-plus"></i></span>
+                        <span class="text">Nuevo plan de trabajo</span>
+                    </a>
+                {% else %}
+                    <a href="{{ path('plan_edit', {'id': plan.id} )}} " class="btn btn-light  ml-4">
+                        <span class="icon text-gray-800"><i class="fas fa-pencil-alt text-gray-600"></i></i></span>
+                        <span class="text"> Editar</span>
+                    </a>
+                {% endif %}
+            </h1>
+            <div>
+                <a href="#" data-toggle="modal" data-target="#myModal3" class="btn btn-light btn-icon-split btn-sm ">
+                    <span class="icon text-gray-600"><i class="fas fa-print"></i></span>
+                    <span class="text">Vista previa</span>
+                </a>
+                {# <a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descargar</h5></a>#}
+                {# <dd><a href="{{ path('plan_pdf',{'anio':2019}) }} "> <h5>Descargar</h5></a></dd>#}
+                <a href="{{ path('plan_pdf',{'anio':2020}) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                    <span class="icon text-gray-600"><i class="fas fa-file-pdf"></i></span>
+                    <span class="text">Versión PDF</span>
+                </a>
+                {% if informe.enviado == 1 %}
+                    <span class="badge badge-pill badge-success">Enviado</span>
+
+                {% else %}
+                    <span class="badge badge-pill badge-warning">No enviado</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {#    <div class="row">#}
+    {#        <div class="col-xl-9">#}
+    {#            <!-- Content Row -->#}
+    {#            <div class="row">#}
+    {#                <div class="col-xl-3 col-md-6 mb-4">#}
+    {#                    <div class="card#}
+    {#                        {% if plan.investigacion == null and plan.estudiantes == null and plan.posdocs == null and#}
+    {#                        plan.cursos == null and plan.proyectos == null and plan.eventos == null and plan.visitantes == null#}
+    {#                    %} border-bottom-warning {% else %}border-bottom-success{% endif %} shadow h-100 py-2">#}
+    {#                        <div class="card-body">#}
+    {#                            <div class="row no-gutters align-items-center">#}
+    {#                                <div class="col mr-2">#}
+    {#                                    <div class="font-weight-bold text-dark mb-1">Plan de trabajo</div>#}
+    {#                                    {% if plan|length == 0 %}#}
+    {#                                        <a href="{{ path('plan_new')}} " class="btn btn-light btn-icon-split btn-sm my-2">#}
+    {#                                            <span class="icon text-gray-800"><i class="fas fa-plus"></i></span>#}
+    {#                                            <span class="text">Nuevo plan de trabajo</span>#}
+    {#                                        </a>#}
+    {#                                    {% else %}#}
+    {#                                        <a href="{{ path('plan_edit', {'id': plan.id} )}} " class="btn btn-light btn-icon-split btn-sm my-2">#}
+    {#                                            <span class="icon text-gray-800"><i class="fas fa-edit"></i></span>#}
+    {#                                            <span class="text">Modificar</span>#}
+    {#                                        </a>#}
+    {#                                    {% endif %}#}
+    {#                                </div>#}
+    {#                                <div class="col-auto text-center">#}
+    {#                                    <i class="fas fa-pencil-alt fa-2x text-gray-600"></i><br>#}
+    {#                                    {% if plan.investigacion == null and plan.estudiantes == null and plan.posdocs == null and#}
+    {#                                        plan.cursos == null and plan.proyectos == null and plan.eventos == null and plan.visitantes == null#}
+    {#                                    %}#}
+    {#                                        <span class="badge badge-pill badge-warning"><i class="fas fa-times"></i></span>#}
+    {#                                    {% else %}#}
+    {#                                        <span class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>#}
+    {#                                    {% endif %}#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <div class="col-xl-3 col-md-6 mb-4">#}
+    {#                    <div class="card {% if informe.enviado == 1 %}border-bottom-success{% else %}border-bottom-danger{% endif %} shadow h-100 py-2">#}
+    {#                        <div class="card-body">#}
+    {#                            <div class="row no-gutters align-items-center">#}
+    {#                                <div class="col mr-2">#}
+    {#                                    <div class="font-weight-bold text-dark mb-1">Plan de trabajo</div>#}
+    {#                                    <a href="#" data-toggle="modal" data-target="#myModal3" class="btn btn-light btn-icon-split btn-sm ">#}
+    {#                                        <span class="icon text-gray-600">#}
+    {#                                            <i class="fas fa-print"></i>#}
+    {#                                        </span>#}
+    {#                                        <span class="text">Vista previa</span>#}
+    {#                                    </a>#}
+    {#                                    #}{# <a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descargar</h5></a>#}
+    {#                                    #}{# <dd><a href="{{ path('plan_pdf',{'anio':2019}) }} "> <h5>Descargar</h5></a></dd>#}
+
+    {#                                    <a href="#" class="btn btn-light btn-icon-split btn-sm my-2">#}
+    {#                                        <span class="icon text-gray-600">#}
+    {#                                            <i class="fas fa-file-pdf"></i>#}
+    {#                                        </span>#}
+    {#                                        <span class="text">Versión PDF</span>#}
+    {#                                    </a>#}
+    {#                                </div>#}
+    {#                                <div class="col-auto text-center">#}
+    {#                                    {% if informe.enviado == 1 %}#}
+    {#                                        <i class="fas fa-check-circle fa-2x text-success"></i><br>#}
+    {#                                        <span class="badge badge-pill badge-success">Enviado</span>#}
+
+    {#                                    {% else %}#}
+    {#                                        <i class="fas fa-times-circle fa-2x text-danger"></i><br>#}
+    {#                                        <span class="badge badge-pill badge-danger">No enviado</span>#}
+    {#                                    {% endif %}#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+    <!-- Modal informe -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Vista previa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <p><strong>Académico:</strong> {{ academico.nombre }} {{ academico.apellido }}</p>
+                            <h3>Informe 2019</h3>
+                        </div>
+                        <div class="col-xl-4">
+                            <p class="text-right"><img class="right" src="{{ asset('img/ccm-bn.png') }}" width="165px" height="50px" /></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div>
+                                <strong>Productividad primaria</strong><br>
+                                {% if informe.productividades|length == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for productividad in informe.productividades %}
+                                            <li class="text-justify">{{ productividad.titulo }}, <small><em> {{ productividad.autores }}</em></small>, <small>{{ productividad.tipo|title }}</small>,
+                                                {% if productividad.revista %} {{ productividad.revista }},{% endif %}
+                                                {% if productividad.year %} {{ productividad.year }}, {% endif %}
+                                                {% if productividad.volumen %}Vol. {{ productividad.volumen }},{% endif %}
+                                                {% if productividad.pags %}{{ productividad.pags }} págs.,{% endif %}
+                                                {% if productividad.indizado %} indizado,{% endif %}
+                                                {% if productividad.issn %} ISSN: {{ productividad.issn  }}, {% endif %}
+                                                {% if productividad.status %} {{ productividad.status|lower  }} {% endif %}</li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <strong>Estudiantes</strong><br>
+                                {% if informe.estudiantes|length == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for estudiante in informe.estudiantes %}
+                                            <li>{{ estudiante.alumno |title }}, <small>{{ estudiante.nivel|title }}, {{ estudiante.programa }}</small>,
+                                                {{ estudiante.avance }}% de avance, {% if estudiante.titulado %} titulado el {{ estudiante.titulacion|localizeddate('long', 'none') }},{% endif %}
+                                                <em> {{ estudiante.tesis }}</em>
+                                                <br>
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+
+                                <div>
+                                    <strong>Posdocs</strong><br>
+                                    {% if informe.posdocs|length == 0 %}
+                                        <p class="text-danger">No se ha registrado información</p>
+                                    {% else %}
+                                        <ol>
+                                            {% for posdoc in informe.posdocs %}
+                                                <li>{{ posdoc.nombre |title }}, <small>del {{ posdoc.inicio|localizeddate('long', 'none') }} al {{ posdoc.fin|localizeddate('long', 'none') }}</small>
+                                                    <br>
+                                                </li>
+                                            {% endfor %}
+                                        </ol>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div>
+                                <strong>Cursos y seminarios</strong><br>
+                                {% if informe.cursos|length == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for curso in informe.cursos %}
+                                            <li>{{ curso.nombre }}, <small>{{ curso.tipo|title }}</small>,<em> {{ curso.nivel }}, {{ curso.horas }} horas por semana, {{ curso.lugar }}</em>
+
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <strong>Proyectos</strong><br>
+                                {% if informe.proyectos|length == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for proyecto in informe.proyectos %}
+                                            <li>{{ proyecto.nombre|title }}, <small>{{ proyecto.tipo }},<em>No. {{ proyecto.numero }}</em>,
+                                                    del {{ proyecto.inicio|localizeddate('long', 'none') }} al {{ proyecto.fin|localizeddate('long', 'none') }}</small>
+
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <strong>Eventos académicos, de divulgación y vinculación</strong><br>
+                                {% if informe.eventos|length == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for evento in eventos %}
+                                            <li class="text-justify">
+                                                {% if evento.motivo != null %}{% for key in evento.motivo %}{{ key }}, {% endfor %}{% endif %}
+                                                {% if evento.nombreEvento != null %}{{ evento.nombreEvento }},{% endif %}
+                                                <small>{% if evento.nacional %} nacional, {% else %} internacional,{% endif %}</small>
+                                                <small>{% if evento.invitacion %} invitación,{% endif %}</small>
+                                                <small>{% if evento.plenaria %} plenaria,{% endif %}</small>
+                                                <small>{% if evento.sinodalAlumno %} sinodal de {{ evento.sinodalAlumno }}{% endif %}</small>
+                                                <small>{% if evento.sinodalGrado %} a nivel {{ evento.sinodalGrado|lower }},{% endif %}</small>
+                                                <small> {% if evento.tipoActividad != null %}{{ evento.tipoActividad|title }},{% endif %}</small>
+                                                {% if evento.tituloTrabajo != null %} "{{ evento.tituloTrabajo }}",{% endif %}
+                                                <em> {% if evento.institucion != null %} {{ evento.institucion }}</em>,{% endif %}
+                                                <em> {% if evento.departamento != null %} {{ evento.departamento }}</em>,{% endif %}
+                                                <em> {% if evento.lugar != null %} {{ evento.lugar }},</em>{% endif %}
+                                                <small>{% if evento.tipo %} {{ evento.tipo|lower }} {% endif %}</small>
+                                                <em> {% if evento.fechaInicio != null %} <small>del {{ evento.fechaInicio|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                                                <em> {% if evento.fechaFin != null %} <small>al {{ evento.fechaFin|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <strong>Visitantes</strong><br>
+                                {% if visitantes == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for visita in visitas %}
+                                            <li>{{ visita.titulo }} {{ visita.anfitrion }},
+                                                <small>{% if visita.nacional != null and visita.nacional == 1 %} nacional, {% else %} internacional,{% endif %}</small>
+                                                <em><small>{% if visita.institucion != null %}{{ visita.institucion }},{% endif %}
+                                                        {% if visita.departamento != null %} {{ visita.departamento }},{% endif %}
+                                                        {% if visita.lugar != null %} {{ visita.lugar }},{% endif %}
+                                                        {% if visita.tipoActividad != null %} {{ visita.tipoActividad}}, {% endif %}
+                                                    </small>
+                                                </em>
+                                                {% if visita.tituloTrabajo != null %} "{{ visita.tituloTrabajo }}",{% endif %}
+                                                <em> {% if visita.fechaInicio != null %} <small>del {{ visita.fechaInicio|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                                                <em> {% if visita.fechaFin != null %} <small>al {{ visita.fechaFin|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <strong>Otros</strong><br>
+                                {% if informe.otros|length == 0 %}
+                                    <p class="text-danger">No se ha registrado información</p>
+                                {% else %}
+                                    <ol>
+                                        {% for otro in informe.otros %}
+                                            <li>
+                                                {% if otro.actividad %}
+                                                    {{ otro.actividad|nl2br }}
+                                                {% endif %}
+                                                <br>
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal envío -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModal2Label">Envío de información</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% if informe.enviado is defined and informe.enviado == 1 %}
+                    <div class="p-3">
+                        <p class="p-3 text-white text-justify bg-gradient-info">
+                            Hemos enviado un acuse de recibo a tu correo <em><strong>{{ app.user.email }}</strong></em>
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="p-3 bg-gray-100 text-justify">
+                        Al momento de enviar tu informe y plan de trabajo recibirás un acuse de recibo a tu correo <em><strong>{{ app.user.email }}</strong></em>.<br>
+                        Una vez enviada la información no será posible realizar modificaciones sobre el informe o plan de trabajo.
+                        {% if plan.id is defined %}
+                            <p class="text-center pt-4"><a class="btn btn-primary" href="{{ path('informe_send') }}" role="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar informe y plan de trabajo</a></p>
+                        {% else %}
+                            <p class="text-justify alert alert-danger">No has creado tu plan de trabajo.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal vista previa plan -->
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModal3Label">Vista previa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    {% if plan.id is defined %}
+                        {{ render(path('plan_show', {'id': plan.id}) ) }}
+                    {% else %}
+                        <p class="text-danger"> No se ha creado el plan de trabajo.</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

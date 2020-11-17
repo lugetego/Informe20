@@ -1,0 +1,138 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block main %}
+    <div class="container-fluid">
+        <div class="row">
+            <!--  -->
+            <div class="col-xl-10 col-sm-12 col-md-10 mt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Inicio</a></li>
+                        <li class="breadcrumb-item active">Informe - Visitantes</li>
+                    </ol>
+                </nav>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Visitantes registrados del año {{ anual }}</h1>
+                    {% if enviado != true  %}
+                        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " data-toggle="modal" data-target="#visitantesnewModal"><i class="fas fa-plus fa-sm text-white-50"></i> Nuevo registro</button>
+                    {% endif %}
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="visitantesnewModal" tabindex="-1" role="dialog" aria-labelledby="visitantesnewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="visitantesnewModalLabel">Nuevo registro de visitante</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                {{ render(path('visitantes_new')) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-sm-12 col-md-4 mb-2">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Visitantes académicos, de divulgación y vinculación</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-justify text-dark">
+                            En este rubro deberá reportar las licencias y comisiones dentro del periodo que corresponde a su informe .</p>
+                        <p class="text-justify text-dark"><strong class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></strong>
+                            Se ha precargado en este sistema la información que nos proporciona la Secretaría Académica. Favor de verificar que sea correcta.
+                            Si hubiera alguna licencia o comisión faltante favor de agregarla.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 col-sm-12 mb-2">
+
+                {% for evento in visitantes %}
+                    {% set eventomodalshow = 'visitanteshowModal'~ evento.id  %}
+                    {% set eventomodaledit = 'eventoeditModal'~ evento.id  %}
+
+                    <div class="card border-left-primary shadow mb-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h5 font-weight-bold text-primary mb-1">
+                                        {% if evento.anfitrion !=null %} {{ evento.anfitrion }}, {% endif %}
+                                        <small>
+                                            {% if evento.institucion != null %} {{ evento.institucion }},{% endif %}
+                                            {% if evento.nombreEvento != null %} {{ evento.nombreEvento }}, {% endif %}
+                                            {% if evento.tipo != null %} {{ evento.tipo  }} {% endif %}
+                                        </small>
+                                    </div>
+                                    <div class="h6 mb-1 font-weight-bold text-gray-800">
+                                        {% if evento.fechaInicio != null %} Inicio: {{ evento.fechaInicio|localizeddate('long', 'none') }}<br>{% endif %}
+                                        {% if evento.fechaFin != null %} Fin: {{ evento.fechaInicio|localizeddate('long', 'none') }}<br>{% endif %}
+                                        {% if evento.departamento != null %} Departamento: {{ evento.departamento }} <br>{% endif %}
+                                        {% if evento.tituloTrabajo != null %} Trabajo: {{ evento.tituloTrabajo }} <br>{% endif %}
+                                        {% if evento.nacional != null %}Nacional: {% if evento.nacional %}Si{% else %}No{% endif %}<br>{% endif %}
+                                        {% if evento.plenaria != null %} Plenaria: {{ evento.plenaria }} <br>{% endif %}
+                                        {% if evento.invitacion != null %} Invitación: {{ evento.invitacion }} <br>{% endif %}
+                                        {% if evento.sinodalGrado != null %} Sinodal: {{ evento.sinodalGrado }} <br>{% endif %}
+                                        {% if evento.sinodalAlumno != null %} Sinodal alumno: {{ evento.sinodalAlumno }} <br>{% endif %}
+                                        {% if evento.tipoActividad != null %}{{ evento.tipoActividad }}{% endif %}
+                                        <p class="text-right">
+                                            {% if enviado != 1 %}
+                                                <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#{{ eventomodaledit }}" >
+                                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#{{ eventomodalshow }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{ eventomodalshow }}" tabindex="-1" role="dialog" aria-labelledby="{{ eventomodalshow }}Label">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{ eventomodalshow }}Label">{{ evento.nombreEvento |title}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ render(path('visitantes_show', {'id': evento.id}) ) }}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{ eventomodaledit }}" tabindex="-1" role="dialog" aria-labelledby="{{ eventomodaledit }}Label">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{ eventomodaledit }}Label">{{ evento.nombreEvento |title}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ render(path('visitantes_edit', {'id': evento.id}) ) }}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Fin visitantes -->
+{% endblock %}

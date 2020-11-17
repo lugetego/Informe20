@@ -1,0 +1,128 @@
+{% form_theme edit_form 'form_errors.html.twig' %}
+
+{{ form_start(edit_form, {'action': path('visitantes_edit', { 'id': id})}) }}
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>{{ form_label(edit_form.titulo) }}</label>
+            {{ form_widget(edit_form.titulo, {'attr': {'class': 'form-control'} } ) }}
+            <div class="text-danger">{{ form_errors(edit_form.titulo) }}</div>
+        </div>
+        <div class="form-group col-md-9">
+            <div>
+                <label for="formNombreInvitado">{{ form_label(edit_form.anfitrion) }}</label>
+                {{ form_widget(edit_form.anfitrion,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nombre del invitado'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.nombreEvento) }}</div>
+        </div>
+        <div class="form-group col-md-3">
+            <div>
+                <label class="text-info" for="formMotivo">{{ form_label(edit_form.tipoActividad) }}</label>
+                {{ form_widget(edit_form.tipoActividad,{'attr': {'class': 'form-control input-sm', 'placeholder':'Tipo de actividad'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.tipoActividad) }}</div>
+        </div>
+        <div class="form-group col-md-9">
+            <div>
+                <div>
+                    <label class="text-info">{{ form_label(edit_form.nacional) }}</label>
+                </div>
+                {% spaceless %}
+                    {% for child in edit_form.nacional %}
+                        <div class="form-check form-check-inline">
+                            {{ form_widget(child) }}  {{ form_label(child, null, {'label_attr': {'class': 'form-check-input'}}) }}
+                        </div>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+            <div>{{ form_errors(edit_form.nacional) }}</div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formNombreEvento">{{ form_label(edit_form.nombreEvento) }}</label>
+                {{ form_widget(edit_form.nombreEvento,{'attr': {'class': 'form-control input-sm', 'placeholder':'Nombre del evento'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.nombreEvento) }}</div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <label class="text-info" for="formTituloTrabajo">{{ form_label(edit_form.tituloTrabajo) }}</label>
+                {{ form_widget(edit_form.tituloTrabajo,{'attr': {'class': 'form-control input-sm', 'placeholder':'Título del trabajo'} } ) }}
+            </div>
+            <div>{{ form_errors(edit_form.tituloTrabajo) }}</div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <div class="text-info">
+                    {{ form_label(edit_form.lugar) }}
+                </div>
+                <div>
+                    {{ form_widget(edit_form.lugar,{'attr': {'class': 'form-control input-sm', 'placeholder':'Lugar'} } ) }}
+                </div>
+                <div>{{ form_errors(edit_form.lugar) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="text-info">
+                    {{ form_label(edit_form.institucion) }}
+                </div>
+                <div>
+                    {{ form_widget(edit_form.institucion,{'attr': {'class': 'form-control input-sm', 'placeholder':'Institución'} } ) }}
+                </div>
+                <div>{{ form_errors(edit_form.institucion) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="text-info">
+                    {{ form_label(edit_form.departamento) }}
+                </div>
+                <div>
+                    {{ form_widget(edit_form.departamento,{'attr': {'class': 'form-control input-sm', 'placeholder':'Departamento'} } ) }}
+                </div>
+                <div>{{ form_errors(edit_form.departamento) }}</div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="text-info">{{ form_label(edit_form.fechaInicio) }}</div>
+                <div class="form-row ">
+                    <div class="col" >{{ form_widget(edit_form.fechaInicio.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                    <div class="col" >{{ form_widget(edit_form.fechaInicio.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                    <div class="col" >{{ form_widget(edit_form.fechaInicio.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                    <div>{{ form_errors(edit_form.fechaInicio) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="text-info">{{ form_label(edit_form.fechaFin) }}</div>
+                <div class="form-row ">
+                    <div class="col" >{{ form_widget(edit_form.fechaFin.day, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                    <div class="col" >{{ form_widget(edit_form.fechaFin.month, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                    <div class="col" >{{ form_widget(edit_form.fechaFin.year, {'attr': {'class': 'form-control input-sm'} } ) }}</div>
+                    <div>{{ form_errors(edit_form.fechaFin) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <div class="text-info">
+                    {{ form_label(edit_form.observaciones) }}
+                </div>
+                <div>
+                    {{ form_widget(edit_form.observaciones,{'attr': {'class': 'form-control input-sm', 'placeholder':'Observaciones'} } ) }}
+                </div>
+                <div>{{ form_errors(edit_form.observaciones) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {{ form_end(edit_form) }}
+    </div>
+</form>

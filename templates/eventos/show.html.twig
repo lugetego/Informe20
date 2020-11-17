@@ -1,0 +1,33 @@
+<div class="card border-left-primary shadow mb-2">
+    <div class="card-body">
+        <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="h5 font-weight-bold text-primary mb-1">
+                    {% if evento.institucion != null %} {{ evento.institucion }},{% endif %}
+                    <small> {% if evento.nombreEvento != null %} {{ evento.nombreEvento }}, {% endif %}
+                        {% if evento.tipo != null %} {{ evento.tipo  }} {% endif %}</small></div>
+                <div class="h6 mb-1 font-weight-bold text-gray-800">
+                    {% if evento.fechaInicio != null %} Inicio: {{ evento.fechaInicio|localizeddate('long', 'none') }}<br>{% endif %}
+                    {% if evento.fechaFin != null %} Fin: {{ evento.fechaFin|localizeddate('long', 'none') }}<br>{% endif %}
+                    {% if evento.departamento != null %} Departamento: {{ evento.departamento }} <br>{% endif %}
+                    {% if evento.tituloTrabajo != null %} Trabajo: {{ evento.tituloTrabajo }} <br>{% endif %}
+                    {% if evento.nacional != null %} Nacional: {{ evento.nacional }} <br>{% endif %}
+                    {% if evento.plenaria != null %} Plenaria: {{ evento.plenaria }} <br>{% endif %}
+                    {% if evento.invitacion != null %} Invitación: {{ evento.invitacion }} <br>{% endif %}
+                    {% if evento.sinodalGrado != null %} Sinodal: {{ evento.sinodalGrado }} <br>{% endif %}
+                    {% if evento.sinodalAlumno != null %} Sinodal alumno: {{ evento.sinodalAlumno }} <br>{% endif %}
+                    {% if evento.motivo != null %}{% for key in evento.motivo %}{{ key }},{% endfor %}{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    {{ form_start(delete_form) }}
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    {% if enviado != true %}
+        <input class="btn btn-danger" type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este registro?')" >
+    {% endif %}
+    {{ form_end(delete_form) }}
+</div>

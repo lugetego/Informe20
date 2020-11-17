@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CCM - Dashboard{% endblock %}
+
+{% block main %}
+
+    <!-- Page Heading -->
+    <div class="card my-4">
+        <div class="card-body">
+            <h1 class="h3 mb-0 text-gray-800 mb-2">Informe de actividades {{ actual }} y Plan de Trabajo {{ siguiente }}</h1>
+            <div>
+                <a href="#" data-toggle="modal" data-target="#myModal3" class="btn btn-light btn-icon-split btn-sm ">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-print"></i>
+                                        </span>
+                    <span class="text">Vista previa</span>
+                </a>
+
+                <a href="{{ path('informe_pdftecnico',{'anio':informe.anio}) }}" class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                    <span class="text">Versión PDF</span>
+                </a>
+                {% if informe.enviado == 1 %}
+                    <span class="badge badge-pill badge-success">Enviado</span>
+
+                {% else %}
+                    <span class="badge badge-pill badge-warning">No enviado</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8">
+            <!-- Content Row -->
+            <div class="row">
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card {% if tecnicos.informeAnual is null or tecnicos.plan is null %}border-bottom-warning{% else %}border-bottom-success{% endif %} shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-dark mb-1">Informe y plan de trabajo</div>
+                                    <a href="{{ path('tecnico_edit',{'id':tecnicos.id} ) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-800"><i class="fas fa-edit"></i></span>
+                                        <span class="text">Modificar información</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto text-center">
+                                    <i class="fas fa-file-alt fa-2x text-gray-600"></i><br>
+                                    {% if tecnicos.informeAnual is null or tecnicos.plan is null %}
+                                        <span class="badge badge-pill badge-warning"><i class="fa fa-times-circle"></i></span>
+                                    {% else %}
+                                        <span class="badge badge-pill badge-success"><i class="fa fa-check-circle"></i></span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Informe y plan de trabajo </h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-dark text-justify">La fecha límite para el envío de tu Informe de trabajo {{ actual }} y Plan de trabajo {{ siguiente }}
+                        es el <strong>15 de enero de 2021.</strong></p>
+                    {% if informe.enviado is defined and informe.enviado == 1 %}
+                        <div class="px-3 py-2 bg-gradient-success text-white">
+                            <p class="text-justify">Se ha recibido la información de tu informe y plan de trabajo,
+                                por lo tanto ya no es posible realizar modificaciones sobre ellos.
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="px-3 py-2 bg-gradient-warning text-white">
+                            Aún no se ha recibido información de tu informe y plan de trabajo.
+                        </div>
+                        <div class="py-2">
+                            <a href="#" data-toggle="modal" data-target="#myModal2" aria-expanded="false" aria-controls="collapseThree" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                                <span class="text">Enviar informe y plan de trabajo</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal envío -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModal2Label">Envío de información</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% if enviado is defined and enviado == 1  %}
+                    <div class="p-3">
+                        <p class="p-3 text-white text-justify bg-gradient-info">
+                            Hemos enviado un acuse de recibo a tu correo <em><strong>{{ app.user.email }}</strong></em>
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="p-3 bg-gray-100 text-justify">
+                        Al momento de enviar tu informe y plan de trabajo recibirás un acuse de recibo a tu correo <em><strong>{{ app.user.email }}</strong></em>.<br>
+                        Una vez enviada la información no será posible realizar modificaciones sobre el informe o plan de trabajo.
+                        {% if tecnicos.id is defined %}
+                            <p class="text-center pt-4"><a class="btn btn-primary" href="{{ path('informe_send') }}" role="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar informe y plan de trabajo</a></p>
+                        {% else %}
+                            <p class="text-justify alert alert-danger">Todavía no has registrado tu información.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal vista previa -->
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Vista previa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    {% if tecnicos.id is defined %}
+                        {{ render(path('tecnico_show',{'id':tecnicos.id})) }}
+                    {% else %}
+                        <p class="text-danger"> Todavía no has registrado tu información.</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

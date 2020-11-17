@@ -1,0 +1,30 @@
+<div class="card border-left-primary shadow mb-2">
+    <div class="card-body">
+        <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="h5 font-weight-bold text-primary mb-1">{{ productividad.titulo }}, <small> {{ productividad.tipo|title  }}</small></div>
+                <div class="h6 mb-1 font-weight-bold text-gray-800">
+                    {% if productividad.autores is defined %}{{ productividad.autores }}<br>{% endif %}
+                    {% if productividad.revista is defined %}{{ productividad.revista }}<br>{% endif %}
+                    {% if productividad.pags is defined %}Págs.: {{ productividad.pags }},{% endif %}
+                    {% if productividad.volumen is defined %}Volume: {{ productividad.volumen }},{% endif %}
+                    {% if productividad.year is defined %}{{ productividad.year }},{% endif %}
+                    {% if productividad.numero is defined %}Issue: {{ productividad.numero }}, {% endif %}
+                    {% if productividad.issn is defined %}ISSN: {{ productividad.issn }}{% endif %}<br>
+                    {% if productividad.issn is defined %}Status: {{ productividad.status }},{% endif %}
+                    {% if productividad.indizado is defined %}Indizado: {% if productividad.indizado %}Si{% else %}No{% endif %} {% endif %}<br>
+                    {% if productividad.proyectos is defined %}Proyectos: {{ productividad.proyectos }}{% endif %}
+                    {# Volume 25, Issue 8, 1 July 2016, Article number 1642011 #}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    {{ form_start(delete_form) }}
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    {% if enviado != true %}
+        <input class="btn btn-danger" type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este registro?')" >
+    {% endif %}
+    {{ form_end(delete_form) }}
+</div>
