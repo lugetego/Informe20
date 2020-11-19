@@ -281,7 +281,7 @@
                 </a>
                 {# <a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descargar</h5></a>#}
                 {# <dd><a href="{{ path('plan_pdf',{'anio':2019}) }} "> <h5>Descargar</h5></a></dd>#}
-                <a href="{{ path('plan_pdf',{'anio':2020}) }} " class="btn btn-light btn-icon-split btn-sm my-2">
+                <a href="{{ path('plan_pdf',{'anio':siguiente}) }} " class="btn btn-light btn-icon-split btn-sm my-2">
                     <span class="icon text-gray-600"><i class="fas fa-file-pdf"></i></span>
                     <span class="text">Versión PDF</span>
                 </a>
@@ -388,7 +388,7 @@
                     <div class="row">
                         <div class="col-xl-8">
                             <p><strong>Académico:</strong> {{ academico.nombre }} {{ academico.apellido }}</p>
-                            <h3>Informe 2019</h3>
+                            <h3>Informe {{ actual }}</h3>
                         </div>
                         <div class="col-xl-4">
                             <p class="text-right"><img class="right" src="{{ asset('img/ccm-bn.png') }}" width="165px" height="50px" /></p>
