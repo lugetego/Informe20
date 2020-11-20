@@ -389,9 +389,9 @@ class DashController extends AbstractController
         // Correos electrónicos
         $message = (new \Swift_Message('Informe y plan de trabajo'))
             ->setFrom('webmaster@matmor.unam.mx')
-            //->setTo(array($user->getEmail() ))
-            ->setTo('gerardo@matmor.unam.mx')
-            //->setBcc(array('webmaster@matmor.unam.mx','vorozco@matmor.unam.mx'))
+            ->setTo(array($user->getEmail() ))
+            //->setTo('gerardo@matmor.unam.mx')
+            ->setBcc(array('webmaster@matmor.unam.mx','vorozco@matmor.unam.mx'))
             ->setBody($this->renderView('dash/mail.txt.twig', array('entity' => $informe,'academico'=>$academico)));
 
         ;
