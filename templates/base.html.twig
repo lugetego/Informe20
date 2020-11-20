@@ -29,7 +29,7 @@
                 <div class="collapse navbar-collapse justify-content-end " id="navbarNavDropdown">
 
                     <ul class="navbar-nav ml-auto">
-                        {% if is_granted('ROLE_USER') %}
+                        {% if not is_granted('ROLE_ADMIN') %}
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-file-alt"></i> {{ anterior }}
