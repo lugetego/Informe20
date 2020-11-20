@@ -365,11 +365,11 @@ class DashController extends AbstractController
     /**
      * Envío informe y plan
      *
-     * @Route("/send", name="informe_send", methods={"GET","POST"})
+     * @Route("/send/{anio}", name="informe_send", methods={"GET","POST"})
 
      */
 
-    public function send(Request $request, \Swift_Mailer $mailer): Response
+    public function send(\Swift_Mailer $mailer, $anio): Response
 
     {
 
@@ -378,8 +378,8 @@ class DashController extends AbstractController
         $user = $this->getUser();
         $academico = $user->getAcademico();
 
-        $informe = $em->getRepository('App:Informe')->findOneByAnio(2020, $academico);
-        $plan = $em->getRepository('App:Plan')->findOneByAnio(2021, $academico);
+        $informe = $em->getRepository('App:Informe')->findOneByAnio($anio, $academico);
+        $plan = $em->getRepository('App:Plan')->findOneByAnio($anio+1, $academico);
         $informe->setEnviado(true);
         $plan->setEnviado(true);
         $em->persist($informe);
@@ -389,9 +389,9 @@ class DashController extends AbstractController
         // Correos electrónicos
         $message = (new \Swift_Message('Informe y plan de trabajo'))
             ->setFrom('webmaster@matmor.unam.mx')
-            ->setTo(array($user->getEmail() ))
-//            ->setTo('gerardo@matmor.unam.mx')
-            ->setBcc(array('webmaster@matmor.unam.mx','vorozco@matmor.unam.mx'))
+            //->setTo(array($user->getEmail() ))
+            ->setTo('gerardo@matmor.unam.mx')
+            //->setBcc(array('webmaster@matmor.unam.mx','vorozco@matmor.unam.mx'))
             ->setBody($this->renderView('dash/mail.txt.twig', array('entity' => $informe,'academico'=>$academico)));
 
         ;

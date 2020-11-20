@@ -464,7 +464,7 @@
                         Al momento de enviar tu informe y plan de trabajo recibirás un acuse de recibo a tu correo <em><strong>{{ app.user.email }}</strong></em>.<br>
                         Una vez enviada la información no será posible realizar modificaciones sobre el informe o plan de trabajo.
                         {% if plan.id is defined %}
-                            <p class="text-center pt-4"><a class="btn btn-primary" href="{{ path('informe_send') }}" role="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar informe y plan de trabajo</a></p>
+                            <p class="text-center pt-4"><a class="btn btn-primary" href="{{ path('informe_send',{'anio': actual} ) }}" role="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar informe y plan de trabajo</a></p>
                         {% else %}
                             <p class="text-justify alert alert-danger">No has creado tu plan de trabajo.</p>
                         {% endif %}
