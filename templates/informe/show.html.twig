@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="col-xl-8">
+        <p><strong>Académico:</strong> {{ academico.nombre }} {{ academico.apellido }}</p>
+        <h3>Informe {{ informe.anio }}</h3>
+    </div>
+    <div class="col-xl-4">
+        <p class="text-right"><img class="right" src="{{ asset('img/ccm-bn.png') }}" width="165px" height="50px" /></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div>
+            <strong>Productividad primaria</strong><br>
+            {% if informe.productividades|length == 0 %}
+                <p class="text-danger">No se ha registrado información</p>
+            {% else %}
+                <ol>
+                    {% for productividad in informe.productividades %}
+                        <li class="text-justify">{{ productividad.titulo }}, <small><em> {{ productividad.autores }}</em></small>, <small>{{ productividad.tipo|title }}</small>,
+                            {% if productividad.revista %} {{ productividad.revista }},{% endif %}
+                            {% if productividad.year %} {{ productividad.year }}, {% endif %}
+                            {% if productividad.volumen %}Vol. {{ productividad.volumen }},{% endif %}
+                            {% if productividad.pags %}{{ productividad.pags }} págs.,{% endif %}
+                            {% if productividad.indizado %} indizado,{% endif %}
+                            {% if productividad.issn %} ISSN: {{ productividad.issn  }}, {% endif %}
+                            {% if productividad.status %} {{ productividad.status|lower  }} {% endif %}</li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+        <div>
+            <strong>Estudiantes</strong><br>
+            {% if informe.estudiantes|length == 0 %}
+                <p class="text-danger">No se ha registrado información</p>
+            {% else %}
+                <ol>
+                    {% for estudiante in informe.estudiantes %}
+                        <li>{{ estudiante.alumno |title }}, <small>{{ estudiante.nivel|title }}, {{ estudiante.programa }}</small>,
+                            {{ estudiante.avance }}% de avance, {% if estudiante.titulado %} titulado el {{ estudiante.titulacion|localizeddate('long', 'none') }},{% endif %}
+                            <em> {{ estudiante.tesis }}</em>
+                            <br>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+
+            <div>
+                <strong>Posdocs</strong><br>
+                {% if informe.posdocs|length == 0 %}
+                    <p class="text-danger">No se ha registrado información</p>
+                {% else %}
+                    <ol>
+                        {% for posdoc in informe.posdocs %}
+                            <li>{{ posdoc.nombre |title }}, <small>del {{ posdoc.inicio|localizeddate('long', 'none') }} al {{ posdoc.fin|localizeddate('long', 'none') }}</small>
+                                <br>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <strong>Cursos y seminarios</strong><br>
+            {% if informe.cursos|length == 0 %}
+                <p class="text-danger">No se ha registrado información</p>
+            {% else %}
+                <ol>
+                    {% for curso in informe.cursos %}
+                        <li>{{ curso.nombre }}, <small>{{ curso.tipo|title }}</small>,<em> {{ curso.nivel }}, {{ curso.horas }} horas por semana, {{ curso.lugar }}</em>
+
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+        <div>
+            <strong>Proyectos</strong><br>
+            {% if informe.proyectos|length == 0 %}
+                <p class="text-danger">No se ha registrado información</p>
+            {% else %}
+                <ol>
+                    {% for proyecto in informe.proyectos %}
+                        <li>{{ proyecto.nombre|title }}, <small>{{ proyecto.tipo }},<em>No. {{ proyecto.numero }}</em>,
+                                del {{ proyecto.inicio|localizeddate('long', 'none') }} al {{ proyecto.fin|localizeddate('long', 'none') }}</small>
+
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+        <div>
+            <strong>Eventos académicos, de divulgación y vinculación</strong><br>
+            {% if informe.eventos|length == 0 %}
+                <p class="text-danger">No se ha registrado información</p>
+            {% else %}
+                <ol>
+                    {% for evento in eventos %}
+                        <li class="text-justify">
+                            {% if evento.motivo != null %}{% for key in evento.motivo %}{{ key }}, {% endfor %}{% endif %}
+                            {% if evento.nombreEvento != null %}{{ evento.nombreEvento }},{% endif %}
+                            <small>{% if evento.nacional %} nacional, {% else %} internacional,{% endif %}</small>
+                            <small>{% if evento.invitacion %} invitación,{% endif %}</small>
+                            <small>{% if evento.plenaria %} plenaria,{% endif %}</small>
+                            <small>{% if evento.sinodalAlumno %} sinodal de {{ evento.sinodalAlumno }}{% endif %}</small>
+                            <small>{% if evento.sinodalGrado %} a nivel {{ evento.sinodalGrado|lower }},{% endif %}</small>
+                            <small> {% if evento.tipoActividad != null %}{{ evento.tipoActividad|title }},{% endif %}</small>
+                            {% if evento.tituloTrabajo != null %} "{{ evento.tituloTrabajo }}",{% endif %}
+                            <em> {% if evento.institucion != null %} {{ evento.institucion }}</em>,{% endif %}
+                            <em> {% if evento.departamento != null %} {{ evento.departamento }}</em>,{% endif %}
+                            <em> {% if evento.lugar != null %} {{ evento.lugar }},</em>{% endif %}
+                            <small>{% if evento.tipo %} {{ evento.tipo|lower }} {% endif %}</small>
+                            <em> {% if evento.fechaInicio != null %} <small>del {{ evento.fechaInicio|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                            <em> {% if evento.fechaFin != null %} <small>al {{ evento.fechaFin|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+        <div>
+            {% set visitantes=0 %}
+            <strong>Visitantes</strong><br>
+            {% if visitantes == 0 %}
+                <p class="text-danger">No se registró información</p>
+            {% else %}
+                <ol>
+                    {% for visita in visitas %}
+                        <li>{{ visita.titulo }} {{ visita.anfitrion }},
+                            <small>{% if visita.nacional != null and visita.nacional == 1 %} nacional, {% else %} internacional,{% endif %}</small>
+                            <em><small>{% if visita.institucion != null %}{{ visita.institucion }},{% endif %}
+                                    {% if visita.departamento != null %} {{ visita.departamento }},{% endif %}
+                                    {% if visita.lugar != null %} {{ visita.lugar }},{% endif %}
+                                    {% if visita.tipoActividad != null %} {{ visita.tipoActividad}}, {% endif %}
+                                </small>
+                            </em>
+                            {% if visita.tituloTrabajo != null %} "{{ visita.tituloTrabajo }}",{% endif %}
+                            <em> {% if visita.fechaInicio != null %} <small>del {{ visita.fechaInicio|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                            <em> {% if visita.fechaFin != null %} <small>al {{ visita.fechaFin|localizeddate('long', 'none') }}</small> </em>{% endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+        <div>
+            <strong>Otros</strong><br>
+            {% if informe.otros|length == 0 %}
+                <p class="text-danger">No se ha registrado información</p>
+            {% else %}
+                <ol>
+                    {% for otro in informe.otros %}
+                        <li>
+                            {% if otro.actividad %}
+                                {{ otro.actividad|nl2br }}
+                            {% endif %}
+                            <br>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+    </div>
+</div>

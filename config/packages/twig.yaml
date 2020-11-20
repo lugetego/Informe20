@@ -6,5 +6,6 @@ twig:
 
 
     globals:
+        anterior: 2019
         actual: 2020
         siguiente: 2021

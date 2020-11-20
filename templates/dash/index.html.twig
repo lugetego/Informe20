@@ -191,41 +191,7 @@
                         </div>
                     </div>
                 </div>
-                {#                <div class="col-xl-3 col-md-6 mb-4">#}
-                {#                    <div class="card {% if informe.enviado == 1 %}border-bottom-success{% else %}border-bottom-danger{% endif %} shadow h-100 py-2">#}
-                {#                        <div class="card-body">#}
-                {#                            <div class="row no-gutters align-items-center">#}
-                {#                                <div class="col mr-2">#}
-                {#                                    <div class="font-weight-bold text-dark mb-1">Informe 2019</div>#}
-                {#                                    <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-light btn-icon-split btn-sm ">#}
-                {#                                        <span class="icon text-gray-600">#}
-                {#                                            <i class="fas fa-print"></i>#}
-                {#                                        </span>#}
-                {#                                        <span class="text">Vista previa</span>#}
-                {#                                    </a>#}
-                {#                                    #}{# <a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descargar</h5></a>#}
-                {#                                    <a href="#" class="btn btn-light btn-icon-split btn-sm my-2">#}
-                {#                                        <span class="icon text-gray-600">#}
-                {#                                            <i class="fas fa-file-pdf"></i>#}
-                {#                                        </span>#}
-                {#                                        <span class="text">Versión PDF</span>#}
-                {#                                    </a>#}
-                {#                                </div>#}
-                {#                                <div class="col-auto text-center">#}
-                {#                                    {% if informe.enviado == 1 %}#}
-                {#                                        <i class="fas fa-check-circle fa-2x text-success"></i><br>#}
-                {#                                        <span class="badge badge-pill badge-success">Enviado</span>#}
-
-                {#                                    {% else %}#}
-                {#                                        <i class="fas fa-times-circle fa-2x text-warning"></i><br>#}
-                {#                                        <span class="badge badge-pill badge-danger">No enviado</span>#}
-                {#                                    {% endif %}#}
-                {#                                </div>#}
-                {#                            </div>#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                </div>#}
-            </div>
+              </div>
         </div>
         <div class="col-xl-3">
             <div class="card mb-4">
@@ -295,85 +261,6 @@
         </div>
     </div>
 
-    {#    <div class="row">#}
-    {#        <div class="col-xl-9">#}
-    {#            <!-- Content Row -->#}
-    {#            <div class="row">#}
-    {#                <div class="col-xl-3 col-md-6 mb-4">#}
-    {#                    <div class="card#}
-    {#                        {% if plan.investigacion == null and plan.estudiantes == null and plan.posdocs == null and#}
-    {#                        plan.cursos == null and plan.proyectos == null and plan.eventos == null and plan.visitantes == null#}
-    {#                    %} border-bottom-warning {% else %}border-bottom-success{% endif %} shadow h-100 py-2">#}
-    {#                        <div class="card-body">#}
-    {#                            <div class="row no-gutters align-items-center">#}
-    {#                                <div class="col mr-2">#}
-    {#                                    <div class="font-weight-bold text-dark mb-1">Plan de trabajo</div>#}
-    {#                                    {% if plan|length == 0 %}#}
-    {#                                        <a href="{{ path('plan_new')}} " class="btn btn-light btn-icon-split btn-sm my-2">#}
-    {#                                            <span class="icon text-gray-800"><i class="fas fa-plus"></i></span>#}
-    {#                                            <span class="text">Nuevo plan de trabajo</span>#}
-    {#                                        </a>#}
-    {#                                    {% else %}#}
-    {#                                        <a href="{{ path('plan_edit', {'id': plan.id} )}} " class="btn btn-light btn-icon-split btn-sm my-2">#}
-    {#                                            <span class="icon text-gray-800"><i class="fas fa-edit"></i></span>#}
-    {#                                            <span class="text">Modificar</span>#}
-    {#                                        </a>#}
-    {#                                    {% endif %}#}
-    {#                                </div>#}
-    {#                                <div class="col-auto text-center">#}
-    {#                                    <i class="fas fa-pencil-alt fa-2x text-gray-600"></i><br>#}
-    {#                                    {% if plan.investigacion == null and plan.estudiantes == null and plan.posdocs == null and#}
-    {#                                        plan.cursos == null and plan.proyectos == null and plan.eventos == null and plan.visitantes == null#}
-    {#                                    %}#}
-    {#                                        <span class="badge badge-pill badge-warning"><i class="fas fa-times"></i></span>#}
-    {#                                    {% else %}#}
-    {#                                        <span class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>#}
-    {#                                    {% endif %}#}
-    {#                                </div>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="col-xl-3 col-md-6 mb-4">#}
-    {#                    <div class="card {% if informe.enviado == 1 %}border-bottom-success{% else %}border-bottom-danger{% endif %} shadow h-100 py-2">#}
-    {#                        <div class="card-body">#}
-    {#                            <div class="row no-gutters align-items-center">#}
-    {#                                <div class="col mr-2">#}
-    {#                                    <div class="font-weight-bold text-dark mb-1">Plan de trabajo</div>#}
-    {#                                    <a href="#" data-toggle="modal" data-target="#myModal3" class="btn btn-light btn-icon-split btn-sm ">#}
-    {#                                        <span class="icon text-gray-600">#}
-    {#                                            <i class="fas fa-print"></i>#}
-    {#                                        </span>#}
-    {#                                        <span class="text">Vista previa</span>#}
-    {#                                    </a>#}
-    {#                                    #}{# <a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descargar</h5></a>#}
-    {#                                    #}{# <dd><a href="{{ path('plan_pdf',{'anio':2019}) }} "> <h5>Descargar</h5></a></dd>#}
-
-    {#                                    <a href="#" class="btn btn-light btn-icon-split btn-sm my-2">#}
-    {#                                        <span class="icon text-gray-600">#}
-    {#                                            <i class="fas fa-file-pdf"></i>#}
-    {#                                        </span>#}
-    {#                                        <span class="text">Versión PDF</span>#}
-    {#                                    </a>#}
-    {#                                </div>#}
-    {#                                <div class="col-auto text-center">#}
-    {#                                    {% if informe.enviado == 1 %}#}
-    {#                                        <i class="fas fa-check-circle fa-2x text-success"></i><br>#}
-    {#                                        <span class="badge badge-pill badge-success">Enviado</span>#}
-
-    {#                                    {% else %}#}
-    {#                                        <i class="fas fa-times-circle fa-2x text-danger"></i><br>#}
-    {#                                        <span class="badge badge-pill badge-danger">No enviado</span>#}
-    {#                                    {% endif %}#}
-    {#                                </div>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-
     <!-- Modal informe -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
@@ -385,7 +272,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    {# <div class="row">
                         <div class="col-xl-8">
                             <p><strong>Académico:</strong> {{ academico.nombre }} {{ academico.apellido }}</p>
                             <h3>Informe {{ actual }}</h3>
@@ -545,7 +432,9 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
+                    </div>#}
+                    {{ render(path('informe_show', {'id': informe.id}) ) }}
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -598,7 +487,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="panel-body">
+                <div class="modal-body">
                     {% if plan.id is defined %}
                         {{ render(path('plan_show', {'id': plan.id}) ) }}
                     {% else %}

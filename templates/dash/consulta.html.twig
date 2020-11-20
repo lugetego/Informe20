@@ -1,345 +1,122 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CCM - Dashboard{% endblock %}
+{% block main %}
 
-{% block css %}
-    {{ parent() }}
-    <!-- Bootstrap Core CSS -->
-{% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Consulta -->
+            <div class="col-xl-12 col-sm-12 col-md-12 mt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Inicio</a></li>
+                        <li class="breadcrumb-item active">Informe {{ anterior }} y Plan de trabajo {{ actual }}</li>
+                    </ol>
+                </nav>
+            </div>
 
-{% block sidebar %}
-
-    <li>
-        <a href="{{ path('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
-    </li>
-    <li>
-        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Informe anual<span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level">
-            <li>
-                <a href="{{ path('investigacion_index') }}">Investigación</a>
-            </li>
-            <li>
-                <a href="{{ path('estudiantes_index') }}">Estudiantes</a>
-            </li>
-            <li>
-                <a href="{{ path('cursos_index') }}">Cursos y seminarios</a>
-            </li>
-            <li>
-                <a href="{{ path('proyectos_index') }}">Proyectos</a>
-            </li>
-            <li>
-                <a href="{{ path('eventos_index') }}">Eventos</a>
-            </li>
-            <li>
-                <a href="{{ path('salidas_index') }}">Licencias y comisiones</a>
-            </li>
-        </ul>
-        <!-- /.nav-second-level -->
-    </li>
-
-    <li>
-        <a href="{{ path('dashboard')}} "> <i class="fa fa-table fa-fw"></i> Plan de trabajo </a>
-    </li>
-
-    <li>
-        <a href="#"><i class="fa fa-calendar fa-fw"></i> Otros años<span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level">
-            <li>
-                <a href="{{ path('consulta',{'anio':2017})}} "> <i class="fa fa-calendar fa-fw"></i> 2017 </a>
-            </li>
-            <li>
-                <a href="{{ path('consulta',{'anio':2016})}} "> <i class="fa fa-calendar fa-fw"></i> 2016 </a>
-            </li>
-        </ul>
-        <!-- /.nav-second-level -->
-    </li>
-
-    <li>
-    </li>
-
-{% endblock %}
-
-{% block wrapper %}
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <p></p>
-            <br>
-            {#                <h1 class="page-header">Solicitudes </h1>#}
-        </div>
-    </div>
-
-    <div class="row">
-    <div class="col-lg-6 col-md-6">
-
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="fa fa-calendar-o" aria-hidden="true"></i> Informe de actividades {{ informe.anio }}
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 ">
-                                <dl>
-                                    {% if informe|length == 0 %}
-                                        <dt><i class="fa fa-plus fa-3x" aria-hidden="true"></i></dt>
-                                        <dd>No existe informe  {{ informe.anio }}</dd>
-                                    {% else %}
-                                    {% if informe.dictamen %}
-                                        <dd><strong>Dictamen: </strong> <mark>{{ informe.dictamen }}</mark></dd>
-                                    {% endif %}
-                                    {% if informe.observaciones %}
-                                        <dd><strong>Observaciones:</strong> {{ informe.observaciones }}</dd>
-                                    {% endif %}
-                                    {% if informe.enviado %}
-                                        <dd><small><i>Enviado el {{ informe.modified|localizeddate('long', 'none') }}</i></small></dd>
-                                    {% endif %}
-
-                                    {% endif %}
-
-                                </dl>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 text-center">
-                                <dl>
-                                    <dt><i class="fa fa-print fa-3x" aria-hidden="true"></i></dt>
-                                    <dd> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">Vista previa Informe {{ informe.anio }}    </button> </dd>
-                                </dl>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 text-center">
-                                <dl>
-                                    <dt><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></dt>
-                                    <dd><a href="{{ path('informe_pdf',{'anio':informe.anio}) }} "> <h5>Descarga</h5></a></dd>
-                                </dl>
-                            </div>
-
+            <div class="col-xl-6 col-sm-12 col-md-6 mt-4">
+                <div class="card ">
+                    <div class="card-body">
+                        <h1 class="h3 mb-0 text-gray-800 mb-2">Informe de actividades {{ anterior }}</h1>
+                        <div>
+                            <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-light btn-icon-split btn-sm ">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-print"></i>
+                                        </span>
+                                <span class="text">Vista previa</span>
+                            </a>
+                            <a href="{{ path('informe_pdf',{'anio':informe.anio}) }}" class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                <span class="text">Versión PDF</span>
+                            </a>
+                            {% if informe.enviado == 1 %}
+                                <span class="badge badge-pill badge-success">{{ informe.dictamen }}</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-warning">No enviado</span>
+                            {% endif %}
+                            {% if informe.observaciones != null %}
+                                <p class="text-justify pt-2"><strong>Observaciones:</strong> <em>{{ informe.observaciones }}</em></p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="fa fa-calendar-o" aria-hidden="true"></i> Plan de trabajo {{ informe.anio + 1}}
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                        <div class="row">
-                            {#<div class="col-lg-4 col-md-4 text-center">#}
-                            {#<dl>#}
-                            {#{% if planes|length == 0 %}#}
-                            {#<dt><i class="fa fa-plus fa-3x" aria-hidden="true"></i></dt>#}
-                            {#<dd><a href="{{ path('plan_new')}} "> <h5>Nuevo plan de trabajo </h5></a></dd>#}
-                            {#{% else %}#}
-                            {#{% set planid = "" %}#}
-
-                            {#{% for plan in planes %}#}
-                            {#<dt><i class="fa fa-edit fa-3x" aria-hidden="true"></i></dt>#}
-                            {#<dd><a href="{{ path('plan_edit', {'id': plan.id} )}} "> <h5>Plan de trabajo </h5></a></dd>#}
-                            {#{% set planid = plan.id %}#}
-                            {#{% endfor %}#}
-                            {#{% endif %}#}
-                            {#</dl>#}
-                            {#</div>#}
-
-                            <div class="col-lg-4 col-md-4 text-center">
-                                <dl>
-                                    <dt><i class="fa fa-print fa-3x" aria-hidden="true"></i></dt>
-                                    <dd> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal3">Vista previa plan {{ informe.anio + 1 }}</button> </dd>
-                                </dl>
-                            </div>
-                            <div class="col-lg-4 col-md-4 text-center">
-                                <dl>
-                                    <dt><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></dt>
-                                    <dd><a href="{{ path('plan_pdf',{'anio': informe.anio + 1}) }} "> <h5>Descargar</h5></a></dd>
-                                </dl>
-                            </div>
-
+            <div class="col-xl-6 col-sm-12 col-md-6 mt-4">
+                <div class="card ">
+                    <div class="card-body">
+                        <h1 class="h3 mb-0 text-gray-800 mb-2">Plan de trabajo {{ actual }}</h1>
+                        <div>
+                            <a href="#" data-toggle="modal" data-target="#myModal3" class="btn btn-light btn-icon-split btn-sm ">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-print"></i>
+                                        </span>
+                                <span class="text">Vista previa</span>
+                            </a>
+                            <a href="{{ path('informe_pdf',{'anio':informe.anio}) }}" class="btn btn-light btn-icon-split btn-sm my-2">
+                                        <span class="icon text-gray-600">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                <span class="text">Versión PDF</span>
+                            </a>
+                            {% if plan.enviado == 1 %}
+                                <span class="badge badge-pill badge-success">{{ informe.dictamen }}</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-warning">No enviado</span>
+                            {% endif %}
+                            {% if informe.observaciones != null %}
+                                <p class="text-justify pt-2"><strong>Observaciones:</strong> <em>{{ informe.observaciones }}</em></p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- Modal informe -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Vista previa Informe {{ informe.anio }}</h4>
+                    <h5 class="modal-title" id="myModalLabel">Vista previa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row page-header">
-                        <div class="col-xs-6">
-                            <h3>Informe {{ informe.anio }}</h3>
-                            <p> <strong>Académico:</strong> {{ academico.nombre }} {{ academico.apellido }}</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <p class="text-right"><img class="right" src="{{ asset('img/ccm.png', absolute=true) }}" width="180px" height="60px" /></p>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid">
-                        <strong>Investigación</strong><br>
-                        {% if informe.investigaciones|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for investigacion in informe.investigaciones %}
-                                    <li class="text-justify">{{ investigacion.titulo }}, <small><em> {{ investigacion.autores }}</em></small>, <small>{{ investigacion.tipo|title }}</small>,
-                                        {% if investigacion.revista %} {{ investigacion.revista }},{% endif %}
-                                        {% if investigacion.year %} {{ investigacion.year }}, {% endif %}
-                                        {% if investigacion.volumen %}Vol. {{ investigacion.volumen }},{% endif %}
-                                        {% if investigacion.pags %}{{ investigacion.pags }} págs.,{% endif %}
-                                        {% if investigacion.indizado %} indizado,{% endif %}
-                                        {% if investigacion.issn %} ISSN: {{ investigacion.issn  }}, {% endif %}
-                                        {% if investigacion.status %} {{ investigacion.status|lower  }} {% endif %}</li>
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                        <strong>Estudiantes</strong><br>
-                        {% if informe.estudiantes|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for estudiante in informe.estudiantes %}
-                                    <li>{{ estudiante.alumno |title }}, <small>{{ estudiante.nivel|title }}, {{ estudiante.programa }}</small>,
-                                        {{ estudiante.avance }}% de avance, {% if estudiante.titulado %} titulado el {{ estudiante.titulacion|localizeddate('long', 'none') }},{% endif %}
-                                        <em> {{ estudiante.tesis }}</em>
-                                        <br>
-                                    </li>
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                        <strong>Posdocs</strong><br>
-                        {% if informe.posdocs|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for posdoc in informe.posdocs %}
-                                    <li>{{ posdoc.nombre |title }}, <small>del {{ posdoc.inicio|localizeddate('long', 'none') }} al {{ posdoc.fin|localizeddate('long', 'none') }}</small>
-                                        <br>
-                                    </li>
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                        <strong>Cursos y seminarios</strong><br>
-                        {% if informe.cursos|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for curso in informe.cursos %}
-                                    <li>{{ curso.nombre }}, <small>{{ curso.tipo|title }}</small>,<em> {{ curso.nivel }}, {{ curso.horas }} horas por semana, {{ curso.lugar }}</em>
-
-                                    </li>
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                        <strong>Proyectos</strong><br>
-                        {% if informe.proyectos|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for proyecto in informe.proyectos %}
-                                    <li>{{ proyecto.nombre|title }}, <small>{{ proyecto.tipo }}</small>,<em> {{ proyecto.numero }}</em>
-
-                                    </li>
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                        <strong>Eventos académicos y de divulgación</strong><br>
-                        {% if informe.eventos|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for evento in informe.eventos %}
-                                    <li class="text-justify">
-                                        {{ evento.nombre }},
-                                        <small>{% if evento.nacional %} nacional, {% else %} internacional,{% endif %}</small>
-                                        <small>{% if evento.organizador %} organizador,{% endif %}</small>
-                                        <small> {{ evento.tipo|title }},</small>
-                                        {% if evento.platica %} "{{ evento.platica }}",{% endif %}
-                                        <small>{% if evento.divulgacion %} Divulgación, {% endif %} </small>
-                                        <em> {% if evento.institucion %} {{ evento.institucion }}</em>,{% endif %}
-                                        {% if evento.actividad %} {{ evento.actividad }},{% endif %}
-                                        {% if evento.pais %} {{ evento.pais }}{% endif %}
-                                    </li>
-
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                        <strong>Licencias y comisiones</strong><br>
-                        {% if informe.salidas|length == 0 %}
-                            No se ha registrado información<br><br>
-                        {% else %}
-                            <ol>
-                                {% for salida in informe.salidas %}
-                                    <li>{{ salida.pais|title }}, <small>{{ salida.tipo|title }}</small>,<em> {{ salida.universidad }}</em>, {{ salida.actividad }},
-                                        {% for proposito in salida.propositos %}
-                                            {{ proposito }},
-                                        {% endfor %}
-                                        <br>
-                                    </li>
-                                {% endfor %}
-                            </ol>
-                        {% endif %}
-
-                    </div>
+                    {{ render(path('informe_show', {'id': informe.id}) ) }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <!-- Modal informe -->
+    <!-- Modal plan -->
     <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Vista previa</h4>
+                    <h5 class="modal-title" id="myModalLabel">Vista previa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="panel-body">
-                    {% if plan is defined %}
-                    {% render controller("InformeBundle:Plan:show", {'id': plan.id}) %}
-
+                <div class="modal-body">
+                    {% if plan.id is defined %}
+                        {{ render(path('plan_show', {'id': plan.id}) ) }}
                     {% else %}
-                    <p class="text-danger"> No se ha creado el plan de trabajo.</p>
-
+                        <p class="text-danger"> No se ha creado el plan de trabajo.</p>
                     {% endif %}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 {% endblock %}

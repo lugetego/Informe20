@@ -65,8 +65,26 @@ class InformeController extends AbstractController
     {
         $deleteForm = $this->createDeleteForm($informe);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $securityContext = $this->container->get('security.token_storage');
+        $user = $securityContext->getToken()->getUser();
+        $academico = $user->getAcademico();
+
+        $plan = $em->getRepository('App:Plan')->findOneByAnio($informe->getAnio()+1,$academico);
+
+        $eventos = $em->getRepository('App:Eventos')->findEventos($informe->getId());
+        $visitas = $em->getRepository('App:Eventos')->findByVisitantes($informe->getId());
+
+
+
         return $this->render('informe/show.html.twig', array(
             'informe' => $informe,
+            'academico' => $academico,
+            'plan' => $plan,
+            'eventos' => $eventos,
+            'visitas' => $visitas,
+
             'delete_form' => $deleteForm->createView(),
         ));
     }

@@ -84,7 +84,6 @@ class PlanController extends AbstractController
     {
 
         $securityContext = $this->container->get('security.token_storage');
-
         $user = $securityContext->getToken()->getUser();
         $academico = $user->getAcademico();
 

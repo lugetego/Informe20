@@ -79,85 +79,71 @@ class DashController extends AbstractController
         }
     }
 
-//    /**
-//     * Lists all actions on Informe .
-//     *
-//     * @Route("/consulta/{anio}", name="consulta")
-//     * @Method({"GET", "POST"})
-//     * @Template()
-//     */
-//    public function consultaAction(Informe $informe)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-//            throw $this->createAccessDeniedException();
-//        }
-//
-//        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
-//        {
-//            $academicos = $em->getRepository('InformeBundle:Academico')->findAll();
-//            return $this->render('dash/admin.html.twig', array(
-//                'academicos'=> $academicos,
-//            ));
-//        }
-//
-//        elseif ($this->get('security.context')->isGranted('ROLE_TECNICO'))
-//        {
-//            $user = $this->get('security.context')->getToken()->getUser();
-//            $academico = $user->getAcademico();
-//            $informe = $em->getRepository('InformeBundle:Informe')->findOneByAnio($informe->getAnio(), $academico);
-//            $tecnicos = $em->getRepository('InformeBundle:Tecnico')->findOneByInforme($informe);
-//            $informeAnual = $tecnicos->getInformeAnual();
-//            $plan= $tecnicos->getPlan();
-//            $enviado = $informe->isEnviado();
-//
-//            return $this->render('dash/consulta-tecnico.html.twig', array(
-//                'academico'=>$academico,
-//                'tecnicos'=> $tecnicos,
-//                'plan'=> $plan,
-//                'enviado'=>$enviado,
-//                'informe'=> $informe,
-//                'informeAnual'=>$informeAnual,
-//                'user'=>$user,
-//
-//            ));
-//        }
-//
-//        else {
-//            $user = $this->get('security.context')->getToken()->getUser();
-//            $academico = $user->getAcademico();
-//
-//            $informe = $em->getRepository('InformeBundle:Informe')->findOneByAnio($informe->getAnio(),$academico);
-//            $plan = $em->getRepository('InformeBundle:Plan')->findOneByAnio($informe->getAnio()+1,$academico);
-//
-//            //$investigaciones = $informe->getInvestigaciones();
-//            //$estudiantes = $informe->getEstudiantes();
-//            //$cursos = $informe->getCursos();
-//            //$proyectos = $informe->getProyectos();
-//            //$eventos = $informe->getEventos();
-//            //$salidas = $informe->getSalidas();
-//            //$planes = $informe->getPlanes();
-//            //$posdocs = $informe->getPosdocs();
-//            //$enviado = $informe->isEnviado();
-//
-//            return $this->render('dash/consulta.html.twig', array(
-//                'informe'=>$informe,
-//                'academico'=> $academico,
-//                /*  'investigaciones'=> $investigaciones,
-//                  'estudiantes'=>$estudiantes,
-//                  'cursos'=>$cursos,
-//                  'proyectos'=>$proyectos,
-//                  'eventos'=>$eventos,
-//                  'salidas'=>$salidas,/**/
-//                  'plan'=>$plan,/*
-//                  'posdocs'=>$posdocs,
-//                  'user'=>$user,
-//                  'enviado'=>$enviado*/
-//            ));
-//        }
-//
-//    }
+    /**
+     * Lists all actions on Informe .
+     *
+     * @Route("/consulta/{anio}", name="consulta", methods={"GET"})
+     */
+    public function consultaAction(Informe $informe)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if ( $this->isGranted('ROLE_ADMIN') )
+        {
+            $academicos = $em->getRepository('InformeBundle:Academico')->findAll();
+            return $this->render('dash/admin.html.twig', array(
+                'academicos'=> $academicos,
+            ));
+        }
+
+        elseif ( $this->isGranted('ROLE_TECNICO'))
+        {
+            $user = $this->getUser();
+            $academico = $user->getAcademico();
+            $informe = $em->getRepository('App:Informe')->findOneByAnio($informe->getAnio(),$academico);
+            $tecnicos = $em->getRepository('App:Tecnico')->findOneByInforme($informe);
+            $informeAnual = $tecnicos->getInformeAnual();
+            $plan= $tecnicos->getPlan();
+            $enviado = $informe->isEnviado();
+
+            return $this->render('dash/consulta-tecnico.html.twig', array(
+                'academico'=>$academico,
+                'tecnicos'=> $tecnicos,
+                'plan'=> $plan,
+                'enviado'=>$enviado,
+                'informe'=> $informe,
+                'informeAnual'=>$informeAnual,
+                'user'=>$user,
+
+            ));
+        }
+
+        else {
+            $user = $this->getUser();
+            $academico = $user->getAcademico();
+
+            $informe = $em->getRepository('App:Informe')->findOneByAnio($informe->getAnio(),$academico);
+            $plan = $em->getRepository('App:Plan')->findOneByAnio($informe->getAnio()+1,$academico);
+
+            $eventos = $em->getRepository('App:Eventos')->findEventos($informe->getId());
+            $visitas = $em->getRepository('App:Eventos')->findByVisitantes($informe->getId());
+
+            return $this->render('dash/consulta.html.twig', array(
+                'informe' => $informe,
+                'academico' => $academico,
+                'plan' => $plan,
+                'eventos' => $eventos,
+                'visitas' => $visitas,
+
+            ));
+
+
+
+        }
+
+    }
 
     /**
      * Export to PDF
@@ -320,16 +306,16 @@ class DashController extends AbstractController
 
         if ($this->isGranted('ROLE_ADMIN')) {
 
-            $informe = $em->getRepository('App:Informe')->findOneByAnio(2019, $academico);
+            $informe = $em->getRepository('App:Informe')->findOneByAnio(2020, $academico);
             $eventos = $em->getRepository('App:Eventos')->findEventos($informe->getId());
             $visitas = $em->getRepository('App:Eventos')->findByVisitantes($informe->getId());
-            $plan = $em->getRepository('App:Plan')->findOneByAnio(2020, $academico);
+            $plan = $em->getRepository('App:Plan')->findOneByAnio(2021, $academico);
 
 
             if(in_array('ROLE_TECNICO', $academico->getUser()->getRoles())){
 
                 $tecnicos = $em->getRepository('App:Tecnico')->findOneByInforme($informe);
-                $informe = $em->getRepository('App:Informe')->findOneByAnio(2019, $academico);
+                $informe = $em->getRepository('App:Informe')->findOneByAnio(2020, $academico);
                 $informeAnual = $tecnicos->getInformeAnual();
                 $plan= $tecnicos->getPlan();
 
@@ -392,8 +378,8 @@ class DashController extends AbstractController
         $user = $this->getUser();
         $academico = $user->getAcademico();
 
-        $informe = $em->getRepository('App:Informe')->findOneByAnio(2019, $academico);
-        $plan = $em->getRepository('App:Plan')->findOneByAnio(2020, $academico);
+        $informe = $em->getRepository('App:Informe')->findOneByAnio(2020, $academico);
+        $plan = $em->getRepository('App:Plan')->findOneByAnio(2021, $academico);
         $informe->setEnviado(true);
         $plan->setEnviado(true);
         $em->persist($informe);
