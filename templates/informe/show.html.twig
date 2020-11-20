@@ -32,7 +32,7 @@
         <div>
             <strong>Estudiantes</strong><br>
             {% if informe.estudiantes|length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 <ol>
                     {% for estudiante in informe.estudiantes %}
@@ -48,7 +48,7 @@
             <div>
                 <strong>Posdocs</strong><br>
                 {% if informe.posdocs|length == 0 %}
-                    <p class="text-danger">No se ha registrado información</p>
+                    <p class="text-danger">No se registró información</p>
                 {% else %}
                     <ol>
                         {% for posdoc in informe.posdocs %}
@@ -63,7 +63,7 @@
         <div>
             <strong>Cursos y seminarios</strong><br>
             {% if informe.cursos|length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 <ol>
                     {% for curso in informe.cursos %}
@@ -77,13 +77,12 @@
         <div>
             <strong>Proyectos</strong><br>
             {% if informe.proyectos|length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 <ol>
                     {% for proyecto in informe.proyectos %}
                         <li>{{ proyecto.nombre|title }}, <small>{{ proyecto.tipo }},<em>No. {{ proyecto.numero }}</em>,
                                 del {{ proyecto.inicio|localizeddate('long', 'none') }} al {{ proyecto.fin|localizeddate('long', 'none') }}</small>
-
                         </li>
                     {% endfor %}
                 </ol>
@@ -92,7 +91,7 @@
         <div>
             <strong>Eventos académicos, de divulgación y vinculación</strong><br>
             {% if informe.eventos|length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 <ol>
                     {% for evento in eventos %}
@@ -144,7 +143,7 @@
         <div>
             <strong>Otros</strong><br>
             {% if informe.otros|length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 <ol>
                     {% for otro in informe.otros %}

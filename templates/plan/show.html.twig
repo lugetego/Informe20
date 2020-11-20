@@ -13,43 +13,43 @@
         <div>
             <strong>Productividad primaria</strong><br>
             {% if plan.investigacion |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.investigacion| nl2br }}<br><br>
             {% endif %}
             <strong>Estudiantes</strong><br>
             {% if plan.estudiantes |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.estudiantes| nl2br }}<br><br>
             {% endif %}
             <strong>Posdoctorantes</strong><br>
             {% if plan.posdocs |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.posdocs| nl2br }}<br><br>
             {% endif %}
             <strong>Cursos y seminarios</strong><br>
             {% if plan.cursos |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.cursos| nl2br }}<br><br>
             {% endif %}
             <strong>Proyectos</strong><br>
             {% if plan.proyectos |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.proyectos| nl2br }}<br><br>
             {% endif %}
             <strong>Eventos académicos, de divulgación y vinculación</strong><br>
             {% if plan.eventos |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.eventos| nl2br }}<br><br>
             {% endif %}
             <strong>Visitantes</strong><br>
             {% if plan.visitantes |length == 0 %}
-                <p class="text-danger">No se ha registrado información</p>
+                <p class="text-danger">No se registró información</p>
             {% else %}
                 {{ plan.visitantes | nl2br}}<br><br>
             {% endif %}
