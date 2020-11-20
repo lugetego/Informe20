@@ -26,19 +26,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {#{% for academico in academicos %}#}
-                        {#<tr>sssssss#}
-                        {#<td>{{ academico.nombre }} {{ academico.apellido }}</a></td>#}
-                        {#<td class="text-center"><a href="{{ path('informe_pdfadmin', {'id': academico.id } ) }} "> <i class="fa fa-file-pdf-o"></i></a></td>#}
-                        {#<td>{{ academico.informe.fecha_eviado }}</td>#}
-                        {#<td>{% if academico.enviado %}{{ academico.modified|localizeddate('long', 'none') }}{% endif %}</td>#}
-                        {#<td>{{ render(controller(#}
-                        {#'InformeBundle:Academico:admin',#}
-                        {#{ 'id': academico.id }#}
-                        {#)) }} </td>#}
-                        {#</tr>#}
-
-                        {#{% endfor %}#}
 
                         {% for informe in informes %}
                             {% set modaledit = 'infeditModal'~ informe.id  %}
@@ -92,7 +79,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="h5 font-weight-bold text-dark mb-1">Informe 2019 y plan de trabajo 2020</div>
+                                        <div class="h5 font-weight-bold text-dark mb-1">Informe {{ actual}} y plan de trabajo {{ siguiente }}</div>
                                         {% set total = informes|length %}
                                         <p class="text-lg pt-3"> <i class="fa fa-users" aria-hidden="true"></i> {{ total }} académicos registrados </p>
                                         {% set enviados = 0 %}
