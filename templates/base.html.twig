@@ -29,6 +29,7 @@
                 <div class="collapse navbar-collapse justify-content-end " id="navbarNavDropdown">
 
                     <ul class="navbar-nav ml-auto">
+                        {% if is_granted('ROLE_USER') %}
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-file-alt"></i> {{ anterior }}
@@ -37,6 +38,8 @@
                                 <a class="dropdown-item" href="{{ path('consulta',{'anio':anterior}) }}"><i class="fa fa-calendar"></i> Informe y plan de trabajo</a>
                             </div>
                         </li>
+                        {% endif %}
+
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user"></i> {{ app.user }}
